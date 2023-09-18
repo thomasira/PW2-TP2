@@ -1,7 +1,7 @@
 
 <main>
     <header>
-        <h2>All stamps</h2>
+        <h2>All users</h2>
     </header>
     <section>
         {% for stamp in stamps %}

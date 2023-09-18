@@ -6,8 +6,13 @@ abstract class Crud extends PDO {
         parent::__construct("mysql:host=localhost;dbname=e2395387;port=3306;charset=utf8", "root", "");
     }
 
-    public function read($field = "id", $order = null) {
-        $sql = "SELECT * FROM $this->table ORDER BY $field $order";
+    public function read($order = null) {
+        $join = "";
+        if(is_array($this->targets)) $this->targets = implode(", ", $this->targets);
+        if(isset($this->tablesMg))
+            foreach($this->tablesMg as $tableMg) 
+                $join .= "INNER JOIN $tableMg ON " . $this->table .".". $tableMg . "_id = $tableMg" . ".id";
+        $sql = "SELECT $this->targets FROM $this->table $join ORDER BY id $order";
         $query = $this->query($sql);
         return $query->fetchAll();
     }
