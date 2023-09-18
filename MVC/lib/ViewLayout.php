@@ -25,8 +25,8 @@ class ViewLayout {
             </head>
             <body>
             <header>
-                <h1>MVC - OOP</h1>
-                <p>cours 09-18 - TWIG(suite)</p>
+                <h1>PW2-TP2</h1>
+                <p>OOP | MVC</p>
             </header>
         <?php 
     } 
@@ -36,7 +36,7 @@ class ViewLayout {
         ?>
         <nav>
             <a href="<?= ROOT ?>">HOME</a>
-            <a href="<?= ROOT . "client" ?>">CLIENT</a>
+            <a href="<?= ROOT . "stamp" ?>">stamps</a>
         </nav>
         <?php
     }
@@ -45,7 +45,7 @@ class ViewLayout {
     static public function footer() { 
         ?>
             <footer>
-                <h4>18-09-2023</h4>
+                <h4>16-09-2023</h4>
                 <div>
                     <p>Thomas Aucoin-Lo</p>
                     <p>e2395387</p>

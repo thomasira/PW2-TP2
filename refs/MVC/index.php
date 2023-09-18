@@ -1,20 +1,18 @@
 <?php
+require_once __DIR__ . "/ViewLayout.php";
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/controller/Controller.php";
-require_once __DIR__ . "/lib/ViewLayout.php";
 require_once __DIR__ . "/lib/RequirePage.php";
 require_once __DIR__ . "/lib/Twig.php";
 
 define("ROOT", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
 
 $url = isset($_SERVER['PATH_INFO']) ? explode("/", ltrim($_SERVER['PATH_INFO'], "/")) : "/";
-
 $name = "home";
 if ($url != "/") $name = $url[0];
 
-ViewLayout::schoolHeader("PW2-TP2 | $name");
+ViewLayout::schoolHeader("MVC | $name");
 ViewLayout::navigation();
-
 if ($url == "/") {
     $controllerHome = __DIR__ . "/controller/ControllerHome.php";
     require_once $controllerHome;
