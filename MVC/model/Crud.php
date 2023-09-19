@@ -12,6 +12,19 @@ abstract class Crud extends PDO {
         return $query->fetchAll();
     }
 
+    public function readKeys($value1, $value2 = null){
+        $and = "";
+        if($value2 != null) $and = "AND $this->compKey2 = :$this->compKey2";
+        $sql = "SELECT * FROM $this->table WHERE $this->compKey1 = :$this->compKey1 $and";
+        $query = $this->prepare($sql);
+        $query->bindValue(":$this->compKey1", $value1);
+        if($value2 != null) $query->bindValue(":$this->compKey2", $value2);
+        $query->execute();
+        $count = $query->rowCount();
+        if ($count != 0) return $query->fetchAll();
+        else header("location: ../../home/error");
+    }
+
     public function readId($value) {
         $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
         $query = $this->prepare($sql);

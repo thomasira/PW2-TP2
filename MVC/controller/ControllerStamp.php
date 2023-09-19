@@ -3,6 +3,8 @@ RequirePage::model("Stamp");
 RequirePage::model("User");
 RequirePage::model("Aspect");
 RequirePage::model("Category");
+RequirePage::model("StampCategory");
+
 
 class ControllerStamp implements Controller {
 
@@ -28,8 +30,8 @@ class ControllerStamp implements Controller {
         $readStamp = $stamp->readId($id);
         $aspect = new Aspect;
         $readAspect = $aspect->readId($readStamp["aspect_id"]);
-        $categories = new Category;
-
+        $categories = new StampCategory;
+        $readStampCategories = $categories->readKeys($readStamp["category_id"]);
         $data = ["stamp" => $readStamp, "aspect" => $readAspect];
         Twig::render("stamp-show.php", $data);
     }
