@@ -26,13 +26,22 @@ class ControllerStamp implements Controller {
     }
 
     public function show($id) {
+        $categories = [];
         $stamp = new Stamp;
         $readStamp = $stamp->readId($id);
+        $data["stamp"] = $readStamp;
+
         $aspect = new Aspect;
-        $readAspect = $aspect->readId($readStamp["aspect_id"]);
-        $categories = new StampCategory;
-        $readStampCategories = $categories->readKeys($readStamp["category_id"]);
-        $data = ["stamp" => $readStamp, "aspect" => $readAspect];
+        $data["aspect"] = $aspect->readId($readStamp["aspect_id"]);
+
+        $stampCategories = new StampCategory;
+        if($stampCategories->readKeys($readStamp["id"])) {
+            $readStampCategories = $stampCategories->readKeys($readStamp["id"]);
+            foreach($readStampCategories as $stampCategory) {
+                $category = new Category;
+                $data["categories"][] = $category->readId($stampCategory["category_id"]);
+            }
+        }
         Twig::render("stamp-show.php", $data);
     }
 

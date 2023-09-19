@@ -18,7 +18,4 @@
         </a>
         {% endfor %}
     </section>
-    <section>
-        <a href="{{ path }}stamp/create" class="btn">Create</a>
-    </section>
 </main>

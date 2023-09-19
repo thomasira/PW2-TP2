@@ -19,16 +19,18 @@
                     {% else %}Undefined {% endif %}
                 </p>
                 <p>
-                    <small>aspect:</small> 
-                    {% if aspect.aspect %} {{ aspect.aspect }} 
-                    {% else %}Undefined {% endif %}
+                    <small>aspect:</small> {{ aspect.aspect }}
                 </p>
             </div>
             <aside>
                 <h4>Categories</h4>
-                <?php foreach ($this->categories as $category) : ?>
-                <p><?= $category["category"] ?></p>
-                <?php endforeach ?>
+                {% if categories is iterable %}
+                    {% for category in categories %}
+                    <p>{{ category.category }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>no categories</p>
+                {% endif %}
             </aside>
         </section>
         <section>
@@ -39,7 +41,7 @@
             </p>
         </section>
         <section>
-            <form action="stamp-modify.php" method="post">
+            <form action="{{ path }}stamp/update" method="post">
                 <input type="hidden" name="id" value="<?= $this->id ?>">
                 <input type="submit" value="modify" class="button">
             </form>

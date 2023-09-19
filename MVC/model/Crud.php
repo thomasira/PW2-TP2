@@ -22,7 +22,7 @@ abstract class Crud extends PDO {
         $query->execute();
         $count = $query->rowCount();
         if ($count != 0) return $query->fetchAll();
-        else header("location: ../../home/error");
+        else return false;
     }
 
     public function readId($value) {
