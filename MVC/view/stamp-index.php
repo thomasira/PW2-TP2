@@ -5,18 +5,20 @@
     </header>
     <section>
         {% for stamp in stamps %}
-        <article>
-            <a href="{{ path }}stamp/show/{{stamp.id}}"><h2>{{ stamp.name }}</h2></a>
-            <ul>
-                <li>Email: <span>{{ stamp.category_id }}</span></li>
-                <li>Phone: <span>{{ stamp.description }}</span></li>
-                <li>Address: <span>{{ stamp.user_id }}</span></li>
-                <li>Zip Code: <span>{{ stamp.aspect_id }}</span></li>
-            </ul>
+        <a href="{{ path }}stamp/show/{{ stamp.id }}">
+        <article class="card-stamp">
+                <header>
+                    <h3>{{ stamp.name }}</h3>
+                </header>
+                <div>
+                    <p>{% if stamp.origin %} {{ stamp.origin }} {% else %} Origin Undefined {% endif %}</p>
+                    <p>{% if stamp.year %} {{ stamp.year }} {% else %} Year Undefined {% endif %}</p>
+                </div>
         </article>
+        </a>
         {% endfor %}
     </section>
     <section>
-        <a href="{{ path }}client/create" class="btn">Create</a>
+        <a href="{{ path }}stamp/create" class="btn">Create</a>
     </section>
 </main>

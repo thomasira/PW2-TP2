@@ -7,12 +7,7 @@ abstract class Crud extends PDO {
     }
 
     public function read($order = null) {
-        $join = "";
-        if(is_array($this->targets)) $this->targets = implode(", ", $this->targets);
-        if(isset($this->tablesMg))
-            foreach($this->tablesMg as $tableMg) 
-                $join .= "INNER JOIN $tableMg ON " . $this->table .".". $tableMg . "_id = $tableMg" . ".id";
-        $sql = "SELECT $this->targets FROM $this->table $join ORDER BY id $order";
+        $sql = "SELECT * FROM $this->table ORDER BY id $order";
         $query = $this->query($sql);
         return $query->fetchAll();
     }
@@ -28,6 +23,8 @@ abstract class Crud extends PDO {
     }
 
     public function create($data) {
+        $data_keys = array_fill_keys($this->fillable, "");
+        $data = array_intersect_key($data, $data_keys);
         $fieldName = implode(", ", array_keys($data));
         $fieldSafe = ":" . implode(", :", array_keys($data));
         $sql = "INSERT INTO $this->table ($fieldName) VALUES ($fieldSafe)";

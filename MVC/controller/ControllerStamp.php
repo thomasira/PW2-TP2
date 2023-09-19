@@ -1,5 +1,9 @@
 <?php
 RequirePage::model("Stamp");
+RequirePage::model("User");
+RequirePage::model("Aspect");
+RequirePage::model("Category");
+
 class ControllerStamp implements Controller {
 
     public function index() {
@@ -21,8 +25,12 @@ class ControllerStamp implements Controller {
 
     public function show($id) {
         $stamp = new Stamp;
-        $readId = $stamp->readId($id);
-        $data = ["stamp" => $readId];
+        $readStamp = $stamp->readId($id);
+        $aspect = new Aspect;
+        $readAspect = $aspect->readId($readStamp["aspect_id"]);
+        $categories = new Category;
+
+        $data = ["stamp" => $readStamp, "aspect" => $readAspect];
         Twig::render("stamp-show.php", $data);
     }
 
