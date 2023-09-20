@@ -1,0 +1,29 @@
+.button{
+    font-family: monospace, sans-serif;
+    font-size: var(--fontSml);
+    text-decoration: none;
+    background-color: var(--colorVar);
+    border: 1px solid var(--colorDark);
+    box-shadow: 1px 1px var(--colorDark);
+    padding: var(--gapSmler);
+}
+
+/*variant*/
+.button.variant{
+    background-color: var(--colorSecond);
+}
+
+/*states*/
+
+.button:active{
+    transform: scale(0.95) translateY(2px);
+    box-shadow:inset 1px 1px var(--colorDark);
+}
+
+@media (hover:hover){
+    .button:hover{
+        color: var(--colorSecond);
+        background-color: var(--colorThird);
+        cursor: pointer;
+    }
+}

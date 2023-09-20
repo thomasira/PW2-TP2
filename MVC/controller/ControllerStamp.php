@@ -31,6 +31,7 @@ class ControllerStamp implements Controller {
     public function store() {
 
         $stamp = new Stamp;
+        $_POST["year"] = intval($_POST["year"]);
         $stamp_id = $stamp->create($_POST);
         foreach($_POST["category_id"] as $category_id => $category){
             $stampCategory = new StampCategory;

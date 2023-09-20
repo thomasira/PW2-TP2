@@ -1,0 +1,10 @@
+
+.flow-form{
+    display: flex;
+    flex-flow: wrap;
+    gap: 50px;
+    align-items: start;
+}
+.flow-form>form{
+    flex: 1;
+}

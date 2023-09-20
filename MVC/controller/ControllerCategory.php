@@ -10,4 +10,10 @@ class ControllerCategory implements Controller {
         Twig::render("category-index.php", $data);
     }
 
+    public function store() {
+        $category = new Category;
+        $url = $_SERVER["HTTP_REFERER"];
+        $categoryId = $category->create($_POST);
+        header("location: $url");
+    }
 }

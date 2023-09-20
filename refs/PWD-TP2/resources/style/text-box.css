@@ -1,0 +1,14 @@
+.text-box{
+    display: block;
+}
+.text-box textarea{
+    padding: var(--gapSmler);
+    background-color: var(--colorLight);
+    margin-top: var(--gapSml);
+    display: block;
+    width: 100%;
+    height: 20em;
+}
+.text-box>*+textarea{
+    margin-top: var(--gapSml);
+}

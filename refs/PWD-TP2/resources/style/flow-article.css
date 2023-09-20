@@ -1,0 +1,13 @@
+.flow-article{
+    display: flex;
+    flex-flow: wrap;
+    gap: 50px;
+    align-items:start;
+    justify-content: space-between;
+}
+.flow-article>article{
+    flex: 1;
+    max-width: 600px;
+    min-width: 300px;
+
+}

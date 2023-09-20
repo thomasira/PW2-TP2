@@ -27,7 +27,7 @@
         <h3><a href="{{ path }}aspect">Aspects</a></h3>
         <ul>
         {% for aspect in aspects %}
-            <li><a href="{{ path }}aspect/show/{{ aspect.id }}">{{ aspect.aspect }}</a></li>
+            <li>{{ aspect.aspect }}</li>
         {% endfor %}
         </ul>
         <a href="{{ path }}aspect/create" class="button">create</a>
@@ -37,7 +37,7 @@
         <h3><a href="{{ path }}category">Categories</a></h3>
         <ul>
         {% for category in categories %}
-            <li><a href="{{ path }}category/show/{{ category.id }}">{{ category.category }}</a></li>
+            <li>{{ category.category }}</li>
         {% endfor %}
         </ul>
         <a href="{{ path }}category/create" class="button">create</a>

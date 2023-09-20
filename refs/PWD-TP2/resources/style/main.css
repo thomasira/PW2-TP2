@@ -1,0 +1,122 @@
+@import url(./article.css);
+@import url(./flow-article.css);
+@import url(./flow-form.css);
+@import url(./error.css);
+@import url(./success.css);
+@import url(./text-box.css);
+@import url(./button.css);
+@import url(./title.css);
+
+:root{
+
+    --fontSmler: 14px;
+    --fontSml: 16px;
+    --fontMed: 18px;
+    --fontLrg: 22px;
+    --fontLrger: 28px;
+    --fontLrgest: 36px;
+
+    --gapSmler: 5px;
+    --gapSml: 10px;
+    --gapMed: 20px;
+    --gapLrg: 40px;
+
+    --colorMain: #707172;
+    --colorVar: #999a9b;
+    --colorSecond: rgb(90, 48, 189);
+    --colorThird:rgb(247, 146, 31);
+    --colorLight: rgb(254, 255, 224);
+    --colorDark: rgb(12, 14, 24);
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+h1{
+    font-size: var(--fontLrgest);
+}
+h2{
+    font-size: var(--fontLrger);
+}
+a{
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+}
+p{
+    font-size: var(--fontMed);
+    font-family: sans-serif;
+    max-width: 95ch;
+}
+body{
+    background: var(--colorMain);
+    font-family: monospace, sans-serif;
+    color: var(--colorDark);
+}
+main{
+    padding: var(--gapLrg);
+    max-width: 1400px;
+    margin: auto;
+}
+main>*+section{
+    margin-top: var(--gapLrg);
+}
+header>*+p{
+    font-family: monospace, sans-serif;
+    margin-top: var(--gapSmler);
+}
+header>*+a{
+    margin-top: var(--gapMed);
+}
+
+section>*+*{
+    margin-top: 10px;
+}
+section>*+div{
+    margin-top: 20px;
+}
+form{
+    padding: 20px;
+    border: 1px solid black;
+}
+form>*+*{
+    margin-top: 10px;
+}
+label{
+    display: block;
+}
+
+input:not([class="button"]){
+    font-family: monospace, sans-serif;
+    border: none;
+    border-bottom: 1px solid var(--colorDark);
+    background: var(--colorLight);
+    padding: 6px;
+}
+
+nav ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    background: black;
+}
+  
+nav ul a {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    color: white;
+}
+nav a:hover{
+    color: black;
+    background-color:white;
+}
+header strong{
+    color: var(--colorThird);
+}
+
+

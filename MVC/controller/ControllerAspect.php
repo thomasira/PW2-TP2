@@ -10,4 +10,13 @@ class ControllerAspect implements Controller {
         Twig::render("aspect-index.php", $data);
     }
 
+    public function create() {
+        Twig::render("aspect-create.php");
+    }
+
+    public function store() {
+        $aspect = new Aspect;
+        $aspectId = $aspect->create($_POST);
+        RequirePage::redirect("panel");
+    }
 }

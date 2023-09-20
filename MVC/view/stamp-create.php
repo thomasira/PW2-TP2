@@ -15,13 +15,18 @@
             <input type="year" name="year">
         </label>
         <section>
-            <h3>categories</h3>
-            {% for category in categories%}
-            <label>{{ category.category }}
-                <input type="checkbox" name="category_id[{{ category.id }}]" value="1">
-            </label>
+            <div>
+                <h4>choose from our categories</h4>
+                {% for category in categories%}
+                <label>{{ category.category }}
+                    <input type="checkbox" name="category_id[{{ category.id }}]" value="1">
+                </label>
+                {% endfor%}
+            </div>
+
+
         </section>
-        {% endfor%}
+
         </label>
         <label>Aspect:
             <select name="aspect_id">
@@ -42,4 +47,13 @@
         </label>
         <input type="submit" value="create" class="button">
     </form>
+    <div>
+        <h4>Or create your own category</h4>
+        <form action="{{ path }}category/store" method="post">
+        <label>{{ category.category }}
+            <input type="text" name="category">
+        </label>
+        <input type="submit" value="create">
+        </form>
+    </div>
 </main>

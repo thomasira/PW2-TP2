@@ -39,6 +39,7 @@ class ViewLayout {
             <a href="<?= ROOT . "stamp" ?>">stamps</a>
             <a href="<?= ROOT . "user" ?>">users</a>
             <a href="<?= ROOT . "panel" ?>">panel</a>
+            <a href="<?= ROOT . "login" ?>">login</a>
 
 
         </nav>

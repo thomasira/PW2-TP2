@@ -1,0 +1,69 @@
+
+.article{
+    max-width: max-content;
+    padding: var(--gapSml);
+    background-color: var(--colorLight);
+    border: 1px solid var(--colorDark);
+    box-shadow: 3px 3px  var(--colorDark);
+}
+.article div{
+    display: flex;
+    gap: var(--gapSml);
+    justify-content: space-between;
+}
+.article h3{
+    font-size: var(--fontLrg);
+    width: max-content;
+    border-bottom: 1px solid var(--colorDark);
+}
+.article small{
+    font-size: var(--fontSml);
+    color: var(--colorSecond);
+    display:block;
+}
+.article *+p{
+    margin-top: var(--gapSml);
+}
+.article *+:is(div, aside){
+    margin-top: var(--gapSml);
+}
+
+
+/*variant*/
+.article.lrg{
+    margin: auto;
+    padding: var(--gapLrg);
+}
+.article.lrg h1{
+    text-align: center;
+    font-size: var(--fontLrger);
+}
+.article.lrg p{
+    font-size: var(--fontLrg);
+}
+.article.lrg small{
+    font-size: var(--fontMed);
+}
+.article.lrg *+p{
+    margin-top: var(--gapLrg);
+}
+.article.lrg *+div{
+    margin-top: var(--gapMed);
+}
+.article.lrg *+a{
+    margin-top: var(--gapMed);
+}
+
+/*states*/
+@media (hover:hover){
+    .article a:hover{
+        color: var(--colorSecond);
+    }
+}
+
+
+
+
+
+
+

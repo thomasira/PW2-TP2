@@ -25,6 +25,7 @@ class ControllerUser implements Controller {
     
     public function store() {
         $user = new User;
+        
         $userId = $user->create($_POST);
         RequirePage::redirect('User/show/'. $userId);
     }
