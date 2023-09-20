@@ -1,5 +1,6 @@
 <?php
 RequirePage::model("Stamp");
+
 class ControllerHome implements Controller {
 
     public function index() {

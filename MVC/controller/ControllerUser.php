@@ -13,10 +13,7 @@ class ControllerUser implements Controller {
     }
 
     public function create() {
-        $city = new City;
-        $read = $city->read();
-        $data =  ["cities" => $read];
-        Twig::render("User-create.php", $data);
+        Twig::render("User-create.php");
     }
 
     public function delete() {
