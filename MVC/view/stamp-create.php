@@ -12,7 +12,7 @@
             <input type="text" name="origin">
         </label>
         <label>Year:
-            <input type="text" name="year">
+            <input type="year" name="year">
         </label>
         <section>
             <h3>categories</h3>

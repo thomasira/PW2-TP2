@@ -34,11 +34,9 @@ class ControllerStamp implements Controller {
         $stamp_id = $stamp->create($_POST);
         foreach($_POST["category_id"] as $category_id => $category){
             $stampCategory = new StampCategory;
-            $stampCategory->create($stamp_id, $category_id);
+            $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);
         }
-        die();
-        
-        RequirePage::redirect('client/show/'. $createdId);
+        RequirePage::redirect('stamp/show/'. $stamp_id);
     }
 
     public function show($id) {
