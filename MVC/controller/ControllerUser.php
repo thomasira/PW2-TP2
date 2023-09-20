@@ -24,20 +24,19 @@ class ControllerUser implements Controller {
     }
     
     public function store() {
-        if(isset($_POST["city"])) {
-            $city = new City;
-            $cityId = $city->create($_POST);
-            $_POST["city_id"] = $cityId;
-        }
-        $User = new User;
-        $createdId = $User->create($_POST);
-        RequirePage::redirect('User/show/'. $createdId);
+        $user = new User;
+        $userId = $user->create($_POST);
+        RequirePage::redirect('User/show/'. $userId);
     }
 
     public function show($id) {
-        $User = new User;
-        $readId = $User->readId($id);
-        $data = ["User" => $readId];
+        $user = new User;
+        $data["user"] = $user->readId($id);
+
+        $stamp = new Stamp;
+        $where = ["target" => "user_id", "value" => $data["user"]["id"]];
+        $data["stamps"] = $stamp->read($where);
+        
         Twig::render("User-show.php", $data);
     }
 

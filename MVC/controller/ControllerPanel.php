@@ -4,7 +4,6 @@ RequirePage::model("User");
 RequirePage::model("Aspect");
 RequirePage::model("Category");
 
-
 class ControllerPanel implements Controller {
 
     public function index() {

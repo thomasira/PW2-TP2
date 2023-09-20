@@ -10,18 +10,34 @@ class ControllerStamp implements Controller {
 
     public function index() {
         $stamp = new Stamp;
-        $read = $stamp->read();
-        $data = ["stamps" => $read];
+        $data["stamps"] = $stamp->read();
+
         Twig::render("stamp-index.php", $data);
     }
 
     public function create() {
-        Twig::render("client-create.php");
+        $aspect = new Aspect;
+        $data["aspects"] = $aspect->read();
+
+        $category = new Category;
+        $data["categories"] = $category->read();
+
+        $user = new User;
+        $data["users"] = $user->read();
+
+        Twig::render("stamp-create.php", $data);
     }
     
     public function store() {
-        $client = new Client;
-        $createdId = $client->create($_POST);
+
+        $stamp = new Stamp;
+        $stamp_id = $stamp->create($_POST);
+        foreach($_POST["category_id"] as $category_id => $category){
+            $stampCategory = new StampCategory;
+            $stampCategory->create($stamp_id, $category_id);
+        }
+        die();
+        
         RequirePage::redirect('client/show/'. $createdId);
     }
 

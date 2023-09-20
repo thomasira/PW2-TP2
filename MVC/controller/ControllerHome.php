@@ -5,8 +5,8 @@ class ControllerHome implements Controller {
 
     public function index() {
         $stamp = new Stamp;
-        $read = $stamp->read();
-        $data = ["stamps" => $read];
+        $data["stamps"] = $stamp->read();
+        
         Twig::render("home-index.php", $data);
     }
 
