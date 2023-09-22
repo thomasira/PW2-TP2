@@ -16,7 +16,6 @@ abstract class Crud extends PDO {
         }
         $sql = "SELECT * FROM $this->table $whereT ORDER BY id $order";
         $query = $this->query($sql);
-
         return $query->fetchAll();
     }
 
