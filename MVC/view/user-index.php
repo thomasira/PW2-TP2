@@ -13,7 +13,4 @@
         </article>
         {% endfor %}
     </section>
-    <section>
-        <a href="{{ path }}user/create" class="btn">Create</a>
-    </section>
 </main>

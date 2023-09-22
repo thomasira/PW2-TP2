@@ -12,9 +12,11 @@ $url = isset($_SERVER['PATH_INFO']) ? explode("/", ltrim($_SERVER['PATH_INFO'], 
 $name = "home";
 if ($url != "/") $name = $url[0];
 
+session_start();
+
 ViewLayout::schoolHeader("PW2-TP2 | $name");
 ViewLayout::navigation();
-session_start();
+
 
 if ($url == "/") {
     $controllerHome = __DIR__ . "/controller/ControllerHome.php";
