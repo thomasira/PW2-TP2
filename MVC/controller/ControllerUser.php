@@ -13,7 +13,7 @@ class ControllerUser implements Controller {
     }
 
     public function create() {
-        Twig::render("User-create.php");
+        Twig::render("user-create.php");
     }
 
     public function delete() {
@@ -43,7 +43,10 @@ class ControllerUser implements Controller {
     }
 
     public function profile() {
-        if(!isset($_SESSION["user_id"])) RequirePage::redirect("error");
+        if(!isset($_SESSION["user_id"])){
+            RequirePage::redirect("error");
+            exit();
+        } 
         $id = $_SESSION["user_id"];
         $user = new User;
         $data["user"] = $user->readId($id);
@@ -67,7 +70,7 @@ class ControllerUser implements Controller {
     public function update() {
         $User = new User;
         $updatedId = $User->update($_POST);
-        if($updatedId) RequirePage::redirect('User/show/'. $updatedId);
+        if($updatedId) RequirePage::redirect('user/show/'. $updatedId);
         else print_r($updatedId);
     }
 }

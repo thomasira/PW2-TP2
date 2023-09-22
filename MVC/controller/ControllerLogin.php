@@ -18,6 +18,7 @@ class ControllerLogin implements Controller {
             exit();
         }
 
+        $readUser = $readUser[0];
         $password = $_POST["password"];
         $dbPassword = $readUser["password"];
         $salt = "7dh#9fj0K";

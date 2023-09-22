@@ -17,7 +17,6 @@ abstract class Crud extends PDO {
         $sql = "SELECT * FROM $this->table $whereT ORDER BY id $order";
         $query = $this->query($sql);
         $count = $query->rowCount();
-        if ($count == 1) return $query->fetch();
         if ($count != 0) return $query->fetchAll();
         else return false;
     }
