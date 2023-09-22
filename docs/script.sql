@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `e2395387`.`pw2tp2_user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(254) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `e2395387`.`pw2tp2_stamp` (
   `name` VARCHAR(45) NOT NULL,
   `description` TEXT NULL,
   `origin` VARCHAR(45) NULL,
-  `year` YEAR NULL,
+  `year` SMALLINT NULL,
   `user_id` INT NOT NULL,
   `aspect_id` INT NOT NULL,
   PRIMARY KEY (`id`),

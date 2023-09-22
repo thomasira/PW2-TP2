@@ -25,7 +25,8 @@ class ControllerUser implements Controller {
     
     public function store() {
         $user = new User;
-        
+        $salt = "7dh#9fj0K";
+        $_POST["password"] = password_hash($_POST["password"] . $salt, PASSWORD_BCRYPT);
         $userId = $user->create($_POST);
         RequirePage::redirect('User/show/'. $userId);
     }

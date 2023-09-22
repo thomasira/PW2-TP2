@@ -5,5 +5,4 @@ class User extends Crud {
     public $table = "pw2tp2_user";
     public $primaryKey = "id";
     public $fillable = ["name", "email", "password"];
-
 }
