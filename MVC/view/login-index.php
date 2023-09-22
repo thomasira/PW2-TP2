@@ -2,6 +2,9 @@
 
 <main>
     <section>
+        {% if error %} 
+        <p>{{ error }}</p>
+        {% endif %}
         <h2>Login</h2>
         <form action="{{ path }}login/auth" method="post">
             <label>Email

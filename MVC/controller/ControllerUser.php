@@ -42,6 +42,19 @@ class ControllerUser implements Controller {
         Twig::render("User-show.php", $data);
     }
 
+    public function profile() {
+        if(!isset($_SESSION["user_id"])) RequirePage::redirect("error");
+        $id = $_SESSION["user_id"];
+        $user = new User;
+        $data["user"] = $user->readId($id);
+
+        $stamp = new Stamp;
+        $where = ["target" => "user_id", "value" => $data["user"]["id"]];
+        $data["stamps"] = $stamp->read($where);
+        
+        Twig::render("User-profile.php", $data);
+    }
+
     public function edit($id) {
         $User = new User; 
         $city = new City;

@@ -14,6 +14,7 @@ if ($url != "/") $name = $url[0];
 
 ViewLayout::schoolHeader("PW2-TP2 | $name");
 ViewLayout::navigation();
+session_start();
 
 if ($url == "/") {
     $controllerHome = __DIR__ . "/controller/ControllerHome.php";
