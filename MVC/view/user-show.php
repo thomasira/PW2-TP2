@@ -5,7 +5,7 @@
             <p>user id: {{ user.id }}</p>
         </header>
         <section>
-            <h3>{{ user.name}}'s stamps</h3>
+            <h3>{{ user.name }}'s stamps</h3>
             {% for stamp in stamps %}
                 <a href="{{ path }}/stamp/show/{{ stamp.id }}">{{ stamp.name }}</a>
             {% endfor %}

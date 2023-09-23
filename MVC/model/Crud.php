@@ -6,15 +6,18 @@ abstract class Crud extends PDO {
         parent::__construct("mysql:host=localhost;dbname=e2395387;port=3306;charset=utf8", "root", "");
     }
 
-    public function read($where = null, $order = null) {
-        $whereT = "";
+    public function read($order = null) {
+        $sql = "SELECT * FROM $this->table ORDER BY id $order";
+        $query = $this->query($sql);
+        $count = $query->rowCount();
+        if ($count != 0) return $query->fetchAll();
+        else return false;
+    }
 
-        if ($where != null) {
-            $target = $where["target"];
-            $value = $where["value"];
-            $whereT = "WHERE $target = '$value'";
-        }
-        $sql = "SELECT * FROM $this->table $whereT ORDER BY id $order";
+    public function readWhere($where) {
+        $target = $where["target"];
+        $value = $where["value"];
+        $sql = "SELECT * FROM $this->table WHERE $target = '$value'";
         $query = $this->query($sql);
         $count = $query->rowCount();
         if ($count != 0) return $query->fetchAll();

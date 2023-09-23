@@ -6,7 +6,7 @@
         <p>{{ error }}</p>
         {% endif %}
         <h2>Login</h2>
-        <form action="{{ path }}login/auth" method="post">
+        <form action="{{ path }}user/auth" method="post">
             <label>Email
                 <input type="email" name="email" required>
             </label>
