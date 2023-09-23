@@ -45,9 +45,6 @@ class ViewLayout {
             <?php else : ?>
                 <a href="<?= ROOT . "login" ?>">login</a>
             <?php endif ?>
-
-
-
         </nav>
         <?php
     }

@@ -7,8 +7,12 @@
         <section>
             <h3>My stamps</h3>
             {% for stamp in stamps %}
-                <a href="{{ path }}/stamp/show/{{ stamp.id }}">{{ stamp.name }}</a>
+                <div>
+                    <a href="{{ path }}/stamp/show/{{ stamp.id }}">{{ stamp.name }}</a>
+                    <a href=""></a>
+                </div>
             {% endfor %}
         </section>
+        <a href="">add stamp</a>
     </article>
 </main>

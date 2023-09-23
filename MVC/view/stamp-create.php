@@ -23,8 +23,12 @@
                 </label>
                 {% endfor%}
             </div>
-
-
+            <div>
+                <h4>And/Or add your own categories(separated with a comma and space)</h4>
+                <label>
+                    <textarea name="categories" cols="30" rows="10"></textarea>
+                </label>
+            </div>
         </section>
 
         </label>
@@ -38,6 +42,10 @@
         <label>description:
             <textarea name="description" cols="30" rows="10"></textarea>
         </label>
+
+        {% if user.id %}
+        <input type="hidden" name="user_id" value="{{ user.id }}">
+        {% else session_username == 'root' %}
         <label>User
             <select name="user_id">
             {% for user in users %}
@@ -45,15 +53,10 @@
             {% endfor %}
             </select>
         </label>
+        {% endif %}
+
         <input type="submit" value="create" class="button">
     </form>
-    <div>
-        <h4>Or create your own category</h4>
-        <form action="{{ path }}category/store" method="post">
-        <label>{{ category.category }}
-            <input type="text" name="category">
-        </label>
-        <input type="submit" value="create">
-        </form>
-    </div>
+        
+
 </main>

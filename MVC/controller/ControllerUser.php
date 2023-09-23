@@ -28,7 +28,7 @@ class ControllerUser implements Controller {
         $salt = "7dh#9fj0K";
         $_POST["password"] = password_hash($_POST["password"] . $salt, PASSWORD_BCRYPT);
         $userId = $user->create($_POST);
-        RequirePage::redirect('User/show/'. $userId);
+        RequirePage::redirect('user/show/'. $userId);
     }
 
     public function show($id) {
@@ -39,7 +39,7 @@ class ControllerUser implements Controller {
         $where = ["target" => "user_id", "value" => $data["user"]["id"]];
         $data["stamps"] = $stamp->read($where);
         
-        Twig::render("User-show.php", $data);
+        Twig::render("user-show.php", $data);
     }
 
     public function profile() {
@@ -55,7 +55,7 @@ class ControllerUser implements Controller {
         $where = ["target" => "user_id", "value" => $data["user"]["id"]];
         $data["stamps"] = $stamp->read($where);
         
-        Twig::render("User-profile.php", $data);
+        Twig::render("user-profile.php", $data);
     }
 
     public function edit($id) {
@@ -64,7 +64,7 @@ class ControllerUser implements Controller {
         $readCity = $city->read();
         $readId = $User->readId($id);
         $data = ["User" => $readId, "cities" => $readCity];
-        Twig::render("User-edit.php", $data);
+        Twig::render("user-edit.php", $data);
     }
 
     public function update() {
