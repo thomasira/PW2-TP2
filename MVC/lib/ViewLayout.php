@@ -18,7 +18,9 @@ class ViewLayout {
                     include "./style/config/school-header.css";
                     include "./style/config/school-footer.css";
                     include "./style/class/error.css";
-                    include "./style/class/btn.css";
+                    include "./style/class/button.css";
+                    include "./style/class/icon.css";
+
                     ?>
                 </style>
                 <title><?= $title ?></title>

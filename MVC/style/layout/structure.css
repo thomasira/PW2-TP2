@@ -34,3 +34,15 @@ ul>*+*{
 article+article{
     margin-top: var(--padMed);
 }
+
+li{
+    display: flex;
+    align-items: center;
+    gap: var(--padLrg);
+}
+
+li div{
+    display: flex;
+    align-items: center;
+    gap: var(--padSmlr);
+}

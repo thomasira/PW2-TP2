@@ -3,6 +3,7 @@
         <header>
             <h2>{{ user.name }}</h2>
             <p>user id: {{ user.id }}</p>
+            <a href="{{ path }}user/edit" class="button">modify info</a>
         </header>
         <section>
             <h3>My stamps</h3>
@@ -19,11 +20,10 @@
                     </form>
                 </div>
             {% endfor %}
+            <a href="{{ path }}stamp/create">add stamp</a>
         </section>
         <section>
-            <h4>Edit Profile</h4>
-
         </section>
-        <a href="{{ path }}stamp/create">add stamp</a>
+
     </article>
 </main>

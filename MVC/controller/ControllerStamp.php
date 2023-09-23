@@ -62,6 +62,10 @@ class ControllerStamp implements Controller {
     }
 
     public function edit() {
+        if(!$_POST){
+            RequirePage::redirect("error");
+            exit();
+        }
         $id = $_POST["id"];
         $stamp = new stamp; 
         $data["stamp"] = $stamp->readId($id);

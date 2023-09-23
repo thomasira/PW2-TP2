@@ -11,6 +11,7 @@ class ControllerCategory implements Controller {
     }
 
     public function create() {
+        if()
         Twig::render("category-create.php");
     }
 

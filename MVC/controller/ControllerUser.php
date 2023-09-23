@@ -43,7 +43,7 @@ class ControllerUser implements Controller {
     }
 
     public function profile() {
-        if(SESSION_USER){
+        if(!SESSION_USER){
             RequirePage::redirect("error");
             exit();
         } 
@@ -51,7 +51,7 @@ class ControllerUser implements Controller {
             RequirePage::redirect("panel");
             exit();
         }
-        $id = $_SESSION["user_id"];
+        $id = SESSION_USER["id"];
         $user = new User;
         $data["user"] = $user->readId($id);
 
@@ -62,19 +62,23 @@ class ControllerUser implements Controller {
         Twig::render("user-profile.php", $data);
     }
 
-    public function edit($id) {
-        $User = new User; 
-        $city = new City;
-        $readCity = $city->read();
-        $readId = $User->readId($id);
-        $data = ["User" => $readId, "cities" => $readCity];
+    public function edit() {
+        if(!SESSION_USER){
+            RequirePage::redirect("error");
+            exit();
+        }
+        $id = SESSION_USER["id"];
+        $user = new User;
+        $data["user"] = $user->readId($id);
         Twig::render("user-edit.php", $data);
     }
 
     public function update() {
         $User = new User;
         $updatedId = $User->update($_POST);
-        if($updatedId) RequirePage::redirect('user/show/'. $updatedId);
+        if($updatedId) {
+            RequirePage::redirect('user/profile');
+        }
         else print_r($updatedId);
     }
 
