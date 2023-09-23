@@ -3,8 +3,9 @@
     --colorDark: rgb(9, 32, 10);
     --colorShadow: rgba(7, 8, 6, 0.507);
     --colorMain: rgb(53, 32, 8);
-    --colorSec: rgb(240, 206, 159);;
-    --colorLight: rgb(240, 228, 203);;
+    --colorSec: rgb(240, 206, 159);
+    --colorLight: rgb(240, 228, 203);
+    --colorWarning: rgb(160, 38, 38);
 
     --fontSmlr: 12px;
     --fontSml: 14px;

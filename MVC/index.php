@@ -39,8 +39,9 @@ if ($url == "/") {
             if (isset($url[2])){
                 $id = $url[2];
                 $controller->$method($id);
-            } else {            
-                $controller->$method();
+            } else {    
+                if(method_exists($controller, $method)) $controller->$method();
+                else RequirePage::redirect("error");
             }
         } else $controller->index();
     } else {

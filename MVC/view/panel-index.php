@@ -48,7 +48,7 @@
     </section>
 
     <section>
-        <h3><a href="{{ path }}aspect">Aspects</a></h3>
+        <h3>Aspects</h3>
         <ul>
         {% for aspect in aspects %}
             <li>{{ aspect.aspect }}

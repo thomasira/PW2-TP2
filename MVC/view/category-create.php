@@ -1,7 +1,7 @@
 
 <main>
     <header>
-        <h2>CreateCategory</h2>
+        <h2>Create Category</h2>
     </header>
     <section>
        <form action="{{ path }}/category/store" method="post">

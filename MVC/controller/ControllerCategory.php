@@ -11,17 +11,51 @@ class ControllerCategory implements Controller {
     }
 
     public function create() {
-        if(!SESSION_USER || SESSION_USER["username"] != "root") {
-            RequirePage::redirect("error");
-            exit();
-        }
+        if(!SESSION_USER || SESSION_USER["username"] != "root") RequirePage::redirect("error");
         else Twig::render("category-create.php");
     }
 
+    public function delete() {
+        if(!SESSION_USER ||
+        SESSION_USER["username"] != "root" ||
+        !isset($_POST["id"])) {
+            RequirePage::redirect("error");
+        } else {
+            $id = $_POST["id"];
+            $category = new Category;
+            $data["category"] = $category->delete($id);
+            RequirePage::redirect("panel");
+        }
+    }
+
+    public function edit() {
+        if(!SESSION_USER ||
+        SESSION_USER["username"] != "root" ||
+        !isset($_POST["id"])) {
+            RequirePage::redirect("error");
+        } else {
+            $id = $_POST["id"];
+            $category = new Category;
+            $data["category"] = $category->readId($id);
+            Twig::render("category-edit.php", $data);
+        }
+    }
+
     public function store() {
-        $category = new Category;
-        $url = $_SERVER["HTTP_REFERER"];
-        $categoryId = $category->create($_POST);
-        header("location: $url");
+        if(!isset($_POST["category"])) RequirePage::redirect("error");
+        else {
+            $category = new Category;
+            $categoryId = $category->create($_POST);
+            RequirePage::redirect("category");
+        }
+    }
+
+    public function update() {
+        if(!isset($_POST["category"])) RequirePage::redirect("error");
+        else {
+            $category = new Category;
+            $category->update($_POST);
+            RequirePage::redirect("panel");
+        }
     }
 }

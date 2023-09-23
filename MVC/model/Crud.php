@@ -59,13 +59,12 @@ abstract class Crud extends PDO {
         return $this->lastInsertId();
     }
 
-/*     public function delete($table, $value, $field = "id", $url = "index.php") {
-        $sql = "DELETE FROM $table WHERE $field = :$field";
+    public function delete($id) {
+        $sql = "DELETE FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
         $query = $this->prepare($sql);
-        $query->bindValue(":$field", $value);
+        $query->bindValue(":$this->primaryKey", $id);
         $query->execute();
-        header("location: $url");
-    } */
+    }
 
     public function update($data) {
         $set = "";

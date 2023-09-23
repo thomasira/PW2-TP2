@@ -13,14 +13,21 @@ class ControllerUser implements Controller {
     }
 
     public function create() {
-        Twig::render("user-create.php");
+        if(SESSION_USER && SESSION_USER["username"] != "root") RequirePage::redirect("error");
+        else Twig::render("user-create.php");
     }
 
     public function delete() {
-        $User = new User;
-        $delete = $user->delete($_POST["id"]);
-        if($delete) RequirePage::redirect("user");
-        else print_r($delete);
+        if(!SESSION_USER ||
+        SESSION_USER["username"] != "root" ||
+        !isset($_POST["id"])) {
+            RequirePage::redirect("error");
+        } else {
+            $id = $_POST["id"];
+            $user = new User;
+            $data["user"] = $user->delete($id);
+            RequirePage::redirect("user");
+        }
     }
     
     public function store() {
@@ -48,7 +55,7 @@ class ControllerUser implements Controller {
     }
 
     public function profile() {
-        if(!SESSION_USER){
+        if(!SESSION_USER) {
             RequirePage::redirect("error");
             exit();
         } 
@@ -56,6 +63,7 @@ class ControllerUser implements Controller {
             RequirePage::redirect("panel");
             exit();
         }
+
         $id = SESSION_USER["id"];
         $user = new User;
         $data["user"] = $user->readId($id);
@@ -68,19 +76,23 @@ class ControllerUser implements Controller {
     }
 
     public function edit() {
+        $id;
         if(!SESSION_USER){
             RequirePage::redirect("error");
             exit();
         }
-        $id = SESSION_USER["id"];
+        if(SESSION_USER["username"] == "root") $id = $_POST["id"];
+        else $id = SESSION_USER["id"];
+
         $user = new User;
         $data["user"] = $user->readId($id);
         Twig::render("user-edit.php", $data);
     }
 
     public function update() {
-        $User = new User;
-        $updatedId = $User->update($_POST);
+        if(!isset($_POST["id"])) RequirePage::redirect("error");
+        $user = new User;
+        $updatedId = $user->update($_POST);
         if($updatedId) {
             RequirePage::redirect('user/profile');
         }

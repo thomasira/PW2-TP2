@@ -40,9 +40,10 @@ class ViewLayout {
             <a href="<?= ROOT ?>">HOME</a>
             <a href="<?= ROOT . "stamp" ?>">stamps</a>
             <a href="<?= ROOT . "user" ?>">users</a>
+            <a href="<?= ROOT . "category" ?>">categories</a>
 
-            <?php if(isset($_SESSION["fingerPrint"])): 
-                if($_SESSION["name"] == "root"): ?>
+            <?php if(SESSION_USER): 
+                if(SESSION_USER["username"] == "root"): ?>
                     <a href="<?= ROOT . "panel" ?>">panel</a>
                     <a href="<?= ROOT . "login/logout" ?>">logout</a>
                 <?php else : ?>
