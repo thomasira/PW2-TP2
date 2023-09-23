@@ -16,7 +16,7 @@ class ControllerStamp implements Controller {
     }
 
     public function create() {
-        if(SESSION_USER) $data["session_user"] = SESSION_USER;
+        if(isset($_SESSION["fingerPrint"])) $data["session_user"] = $_SESSION;
 
         $aspect = new Aspect;
         $data["aspects"] = $aspect->read();
@@ -31,9 +31,15 @@ class ControllerStamp implements Controller {
     }
     
     public function store() {
+        print_r($_POST["categories"]);
+        die();
+
+
         $stamp = new Stamp;
         $_POST["year"] = intval($_POST["year"]);
         $stamp_id = $stamp->create($_POST);
+
+
         foreach($_POST["category_id"] as $category_id => $category){
             $stampCategory = new StampCategory;
             $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);

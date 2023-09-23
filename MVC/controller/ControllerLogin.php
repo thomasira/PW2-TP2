@@ -4,7 +4,9 @@ RequirePage::model("User");
 class ControllerLogin implements Controller {
 
     public function index() {
-        Twig::render("login-index.php");
+        if(!isset($_SESSION["fingerPrint"])) Twig::render("login-index.php");
+        else RequirePage::redirect("error");
+        
     }
 
     public function logout() {

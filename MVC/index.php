@@ -10,9 +10,6 @@ define("ROOT", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
 $url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
 
 session_start();
-if(isset($_SESSION["fingerPrint"])) {
-    define("SESSION_USER",["username" => $_SESSION["name"], "id" => $_SESSION["user_id"]]);
-} else define("SESSION_USER", false);
 
 $name = "home";
 if ($url != "/") $name = $url[0];

@@ -7,8 +7,7 @@ RequirePage::model("Category");
 class ControllerPanel implements Controller {
 
     public function index() {
-
-        if(!SESSION_USER || SESSION_USER["username"] != "root") {
+        if(!isset($_SESSION["fingerPrint"]) || $_SESSION["name"] != "root") {
             RequirePage::redirect("error");
             exit();
         }

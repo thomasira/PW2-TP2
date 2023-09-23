@@ -11,13 +11,13 @@ class ControllerCategory implements Controller {
     }
 
     public function create() {
-        if(!SESSION_USER || SESSION_USER["username"] != "root") RequirePage::redirect("error");
+        if(!isset($_SESSION["fingerPrint"]) || $_SESSION["name"] != "root") RequirePage::redirect("error");
         else Twig::render("category-create.php");
     }
 
     public function delete() {
-        if(!SESSION_USER ||
-        SESSION_USER["username"] != "root" ||
+        if(!isset($_SESSION["fingerPrint"]) ||
+        $_SESSION["name"] != "root" ||
         !isset($_POST["id"])) {
             RequirePage::redirect("error");
         } else {
@@ -29,8 +29,8 @@ class ControllerCategory implements Controller {
     }
 
     public function edit() {
-        if(!SESSION_USER ||
-        SESSION_USER["username"] != "root" ||
+        if(!isset($_SESSION["fingerPrint"]) ||
+        $_SESSION["name"] != "root" ||
         !isset($_POST["id"])) {
             RequirePage::redirect("error");
         } else {

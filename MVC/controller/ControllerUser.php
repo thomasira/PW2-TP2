@@ -5,6 +5,7 @@ RequirePage::model("Stamp");
 
 class ControllerUser implements Controller {
 
+
     public function index() {
         $user = new User;
         $read = $user->read();
@@ -12,14 +13,16 @@ class ControllerUser implements Controller {
         Twig::render("user-index.php", $data);
     }
 
+
     public function create() {
-        if(SESSION_USER && SESSION_USER["username"] != "root") RequirePage::redirect("error");
-        else Twig::render("user-create.php");
+        if(isset($_SESSION["fingerPrint"]) && $_SESSION["name"] == "root") Twig::render("user-create.php");
+        else RequirePage::redirect("error");
     }
 
+
     public function delete() {
-        if(!SESSION_USER ||
-        SESSION_USER["username"] != "root" ||
+        if(!isset($_SESSION["fingerPrint"]) ||
+        $_SESSION["name"] != "root" ||
         !isset($_POST["id"])) {
             RequirePage::redirect("error");
         } else {
@@ -30,18 +33,20 @@ class ControllerUser implements Controller {
         }
     }
     
+
     public function store() {
         $user = new User;
         $salt = "7dh#9fj0K";
         $_POST["password"] = password_hash($_POST["password"] . $salt, PASSWORD_BCRYPT);
         $userId = $user->create($_POST);
 
-        $_SESSION["user_id"] = $userId;
+        $_SESSION["id"] = $userId;
         $_SESSION["name"] = $_POST["name"];
         $_SESSION["fingerPrint"] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
         
         RequirePage::redirect("user/profile");
     }
+
 
     public function show($id) {
         $user = new User;
@@ -54,17 +59,14 @@ class ControllerUser implements Controller {
         Twig::render("user-show.php", $data);
     }
 
+
     public function profile() {
-        if(!SESSION_USER) {
+        if(!isset($_SESSION["fingerPrint"])) {
             RequirePage::redirect("error");
             exit();
         } 
-        if(SESSION_USER["username"] == "root") {
-            RequirePage::redirect("panel");
-            exit();
-        }
 
-        $id = SESSION_USER["id"];
+        $id = $_SESSION["id"];
         $user = new User;
         $data["user"] = $user->readId($id);
 
@@ -77,12 +79,12 @@ class ControllerUser implements Controller {
 
     public function edit() {
         $id;
-        if(!SESSION_USER){
+        if(!isset($_SESSION["fingerPrint"])){
             RequirePage::redirect("error");
             exit();
         }
-        if(SESSION_USER["username"] == "root") $id = $_POST["id"];
-        else $id = SESSION_USER["id"];
+        if($_SESSION["name"] == "root") $id = $_POST["id"];
+        else $id = $_SESSION["id"];
 
         $user = new User;
         $data["user"] = $user->readId($id);
@@ -117,7 +119,7 @@ class ControllerUser implements Controller {
 
         if(password_verify($password.$salt, $dbPassword)){
             session_regenerate_id();
-            $_SESSION["user_id"] = $readUser["id"];
+            $_SESSION["id"] = $readUser["id"];
             $_SESSION["name"] = $readUser["name"];
             $_SESSION["fingerPrint"] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
         } else {
@@ -125,6 +127,7 @@ class ControllerUser implements Controller {
             Twig::render("login-index.php", $data);
             exit();
         }
-        RequirePage::redirect("user/profile");
+        if($_SESSION["name"] == "root") RequirePage::redirect("panel");
+        else RequirePage::redirect("user/profile");
     }
 }
