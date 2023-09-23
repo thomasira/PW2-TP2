@@ -11,8 +11,11 @@ class ControllerCategory implements Controller {
     }
 
     public function create() {
-        if()
-        Twig::render("category-create.php");
+        if(!SESSION_USER || SESSION_USER["username"] != "root") {
+            RequirePage::redirect("error");
+            exit();
+        }
+        else Twig::render("category-create.php");
     }
 
     public function store() {

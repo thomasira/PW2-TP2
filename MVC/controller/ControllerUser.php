@@ -28,7 +28,12 @@ class ControllerUser implements Controller {
         $salt = "7dh#9fj0K";
         $_POST["password"] = password_hash($_POST["password"] . $salt, PASSWORD_BCRYPT);
         $userId = $user->create($_POST);
-        RequirePage::redirect('user/show/'. $userId);
+
+        $_SESSION["user_id"] = $userId;
+        $_SESSION["name"] = $_POST["name"];
+        $_SESSION["fingerPrint"] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
+        
+        RequirePage::redirect("user/profile");
     }
 
     public function show($id) {
@@ -47,7 +52,7 @@ class ControllerUser implements Controller {
             RequirePage::redirect("error");
             exit();
         } 
-        if(SESSION_USER["username"] == 'root') {
+        if(SESSION_USER["username"] == "root") {
             RequirePage::redirect("panel");
             exit();
         }
