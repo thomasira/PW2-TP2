@@ -31,9 +31,6 @@ class ControllerStamp implements Controller {
     }
     
     public function store() {
-        print_r($_POST["categories"]);
-        die();
-
 
         $stamp = new Stamp;
         $_POST["year"] = intval($_POST["year"]);
@@ -65,6 +62,24 @@ class ControllerStamp implements Controller {
             }
         }
         Twig::render("stamp-show.php", $data);
+    }
+
+    public function delete() {
+        $id = $_POST["id"];
+        $stamp = new Stamp;
+        $readStamp = $stamp->readId($id);
+        $data["stamp"] = $readStamp;
+
+        $stampCategories = new StampCategory;
+
+        if($stampCategories->readKeys($readStamp["id"])) {
+            $readStampCategories = $stampCategories->readKeys($readStamp["id"]);
+            foreach($readStampCategories as $stampCategory) {
+                print_r($stampCategory);
+                
+            }
+            die();
+        }
     }
 
     public function edit() {

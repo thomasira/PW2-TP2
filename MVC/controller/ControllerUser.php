@@ -19,15 +19,25 @@ class ControllerUser implements Controller {
         else RequirePage::redirect("error");
     }
 
-
     public function delete() {
-        if(!isset($_SESSION["fingerPrint"]) ||
-        $_SESSION["name"] != "root" ||
-        !isset($_POST["id"])) {
+        if(!isset($_SESSION["fingerPrint"]) || !isset($_POST["id"])) {
             RequirePage::redirect("error");
         } else {
-            $id = $_POST["id"];
+            $id;
+            if($_SESSION["name"] == "root") $id = $_POST["id"];
+            else $id = $_SESSION["id"];
             $user = new User;
+
+            $stamp = new Stamp;
+            $where = ["target" => "user_id", "value" => $id];
+            $data["stamps"] = $stamp->readWhere($where);
+
+/*             foreach($data["stamps"] as $stamp) {
+                
+            } */
+            print_r($data);
+            die();
+
             $data["user"] = $user->delete($id);
             RequirePage::redirect("user");
         }

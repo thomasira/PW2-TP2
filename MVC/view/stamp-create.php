@@ -43,7 +43,7 @@
             <textarea name="description" cols="30" rows="10"></textarea>
         </label>
 
-        {% if session_user.username == 'root' %}
+        {% if session_user.name == 'root' %}
         <label>User
             <select name="user_id">
             {% for user in users %}
