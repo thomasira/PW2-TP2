@@ -9,6 +9,6 @@ class ControllerLogin implements Controller {
 
     public function logout() {
         session_destroy();
-        RequirePage::redirect("/");
+        RequirePage::redirect("");
     }
 }

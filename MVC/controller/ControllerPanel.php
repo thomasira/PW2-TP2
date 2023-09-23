@@ -7,6 +7,12 @@ RequirePage::model("Category");
 class ControllerPanel implements Controller {
 
     public function index() {
+
+        if(SESSION_USER["username"] != 'root') {
+            RequirePage::redirect("");
+            exit();
+        }
+
         $stamp = new Stamp;
         $read = $stamp->read();
         $data["stamps"] = $read;

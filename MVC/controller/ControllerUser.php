@@ -43,10 +43,14 @@ class ControllerUser implements Controller {
     }
 
     public function profile() {
-        if(!isset($_SESSION["user_id"])){
+        if(SESSION_USER){
             RequirePage::redirect("error");
             exit();
         } 
+        if(SESSION_USER["username"] == 'root') {
+            RequirePage::redirect("panel");
+            exit();
+        }
         $id = $_SESSION["user_id"];
         $user = new User;
         $data["user"] = $user->readId($id);
