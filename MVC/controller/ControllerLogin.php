@@ -12,3 +12,5 @@ class ControllerLogin implements Controller {
         RequirePage::redirect("");
     }
 }
+
+?>

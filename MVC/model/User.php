@@ -6,3 +6,5 @@ class User extends Crud {
     public $primaryKey = "id";
     public $fillable = ["name", "email", "password"];
 }
+
+?>

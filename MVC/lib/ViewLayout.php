@@ -45,7 +45,6 @@ class ViewLayout {
             <?php if(SESSION_USER): ?>
                 <?php if(SESSION_USER["username"] == "root"): ?>
                     <a href="<?= ROOT . "panel" ?>">panel</a>
-                    <a href="<?= ROOT . "login" ?>">login</a>
                 <?php else : ?>
                     <a href="<?= ROOT . "user/profile" ?>">profile</a>
                 <?php endif ?>

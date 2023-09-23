@@ -9,3 +9,4 @@ class RequirePage {
         header("location:" . ROOT . $page);
     }
 }
+?>
