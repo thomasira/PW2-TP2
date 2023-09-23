@@ -4,7 +4,7 @@
         <h2>Edit User</h2>
     </header>
     <section>
-       <form action="{{ path }}/user/update" method="post">
+       <form action="{{ path }}user/update" method="post">
         <label>User name
             <input type="text" name="name" value="{{ user.name }}" required>
         </label>

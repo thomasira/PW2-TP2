@@ -42,13 +42,12 @@ class ViewLayout {
             <a href="<?= ROOT . "user" ?>">users</a>
             <a href="<?= ROOT . "category" ?>">categories</a>
 
-            <?php if(SESSION_USER): 
-                if(SESSION_USER["username"] == "root"): ?>
+            <?php if(SESSION_USER): ?>
+                <?php if(SESSION_USER["username"] == "root"): ?>
                     <a href="<?= ROOT . "panel" ?>">panel</a>
-                    <a href="<?= ROOT . "login/logout" ?>">logout</a>
+                    <a href="<?= ROOT . "login" ?>">login</a>
                 <?php else : ?>
                     <a href="<?= ROOT . "user/profile" ?>">profile</a>
-                    <a href="<?= ROOT . "login/logout" ?>">logout</a>
                 <?php endif ?>
             <?php else : ?>
                 <a href="<?= ROOT . "login" ?>">login</a>
