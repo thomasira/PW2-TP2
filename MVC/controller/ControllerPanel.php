@@ -8,7 +8,7 @@ class ControllerPanel implements Controller {
 
     public function index() {
 
-        if(SESSION_USER["username"] != "root") {
+        if(!SESSION_USER || SESSION_USER["username"] != "root") {
             RequirePage::redirect("error");
             exit();
         }
