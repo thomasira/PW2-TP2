@@ -22,9 +22,9 @@ abstract class Crud extends PDO {
     }
 
     public function readKeys($value1, $value2 = null){
-        $andT = "";
+        $and = "";
         if($value2 != null) $and = "AND $this->compKey2 = :$this->compKey2";
-        $sql = "SELECT * FROM $this->table WHERE $this->compKey1 = :$this->compKey1 $andT";
+        $sql = "SELECT * FROM $this->table WHERE $this->compKey1 = :$this->compKey1 $and";
         $query = $this->prepare($sql);
         $query->bindValue(":$this->compKey1", $value1);
         if($value2 != null) $query->bindValue(":$this->compKey2", $value2);
