@@ -40,11 +40,6 @@
                 {% else %}No description {% endif %}
             </p>
         </section>
-        <section>
-            <form action="{{ path }}stamp/update" method="post">
-                <input type="hidden" name="id" value="<?= $this->id ?>">
-                <input type="submit" value="modify" class="button">
-            </form>
-        </section>
+       
     </article>
 </main>

@@ -43,9 +43,7 @@
             <textarea name="description" cols="30" rows="10"></textarea>
         </label>
 
-        {% if session_user %}
-        <input type="hidden" name="user_id" value="{{ session_user.id }}">
-        {% else session_user.username == 'root' %}
+        {% if session_user == 'root' %}
         <label>User
             <select name="user_id">
             {% for user in users %}
@@ -53,6 +51,8 @@
             {% endfor %}
             </select>
         </label>
+        {% else %} 
+        <input type="hidden" name="user_id" value="{{ user.id }}">
         {% endif %}
 
         <input type="submit" value="create" class="button">

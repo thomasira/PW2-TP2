@@ -37,7 +37,7 @@ class ControllerUser implements Controller {
 
         $stamp = new Stamp;
         $where = ["target" => "user_id", "value" => $data["user"]["id"]];
-        $data["stamps"] = $stamp->read($where);
+        $data["stamps"] = $stamp->readWhere($where);
         
         Twig::render("user-show.php", $data);
     }
@@ -53,7 +53,7 @@ class ControllerUser implements Controller {
 
         $stamp = new Stamp;
         $where = ["target" => "user_id", "value" => $data["user"]["id"]];
-        $data["stamps"] = $stamp->read($where);
+        $data["stamps"] = $stamp->readWhere($where);
         
         Twig::render("user-profile.php", $data);
     }
@@ -80,8 +80,7 @@ class ControllerUser implements Controller {
         $readUser = $user->readWhere($where);
 
         if(!$readUser) {
-            $data
-            ["error"] = "no such account";
+            $data["error"] = "no such account";
             Twig::render("login-index.php", $data);
             exit();
         }

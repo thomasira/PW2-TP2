@@ -16,6 +16,8 @@ class ControllerStamp implements Controller {
     }
 
     public function create() {
+        if(SESSION_USER) $data["session_user"] = SESSION_USER;
+
         $aspect = new Aspect;
         $data["aspects"] = $aspect->read();
 
@@ -29,7 +31,6 @@ class ControllerStamp implements Controller {
     }
     
     public function store() {
-
         $stamp = new Stamp;
         $_POST["year"] = intval($_POST["year"]);
         $stamp_id = $stamp->create($_POST);
@@ -60,11 +61,11 @@ class ControllerStamp implements Controller {
         Twig::render("stamp-show.php", $data);
     }
 
-    public function edit($id) {
-        $client = new Client; 
-        $readId = $client->readId($id);
-        $data = ["client" => $readId];
-        Twig::render("client-edit.php", $data);
+    public function edit() {
+        $id = $_POST["id"];
+        $stamp = new stamp; 
+        $data["stamp"] = $stamp->readId($id);
+        Twig::render("stamp-edit.php", $data);
     }
 
     public function update() {

@@ -7,13 +7,15 @@ require_once __DIR__ . "/lib/Twig.php";
 
 define("ROOT", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
 
-$url = isset($_SERVER['PATH_INFO']) ? explode("/", ltrim($_SERVER['PATH_INFO'], "/")) : "/";
+$url = isset($_SERVER["PATH_INFO"]) ? explode("/", ltrim($_SERVER["PATH_INFO"], "/")) : "/";
 
 $name = "home";
 if ($url != "/") $name = $url[0];
 
 session_start();
-
+if(isset($_SESSION["fingerPrint"])) {
+    define("SESSION_USER",["username" => $_SESSION["name"], "id" => $_SESSION["user_id"]]);
+}
 ViewLayout::schoolHeader("PW2-TP2 | $name");
 ViewLayout::navigation();
 
