@@ -1,5 +1,6 @@
+
 <main>
-    <article class="file-user">
+    <article class="profile-user">
         <header>
             <h2>{{ user.name }}</h2>
             <p>user id: {{ user.id }}</p>
@@ -8,7 +9,7 @@
             <h3>My stamps</h3>
             <ul>
             {% for stamp in stamps %}
-                <li>
+                <li class="item-row">
                     <a href="{{ path }}stamp/show/{{ stamp.id }}">{{ stamp.name }}</a>
                     <div>
                         <form action="{{ path }}stamp/edit" method="post">

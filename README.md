@@ -54,7 +54,7 @@ la table stamp_category partage la clé composé de ces deux tables.
 ## Sur la base de données   
 
 **voir diagram.png ou presentation.pdf*   
-**voir stampDB.sql ou presentation.pdf*
+**voir stampDB.sql*
 
 Les tables de la DB sont relativement lousses où la majorité des clés étrangères sont non-obligatoires.   
 Des champs ont aussi été altérés par rapport au TP1.

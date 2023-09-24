@@ -7,7 +7,7 @@
         <h3><a href="{{ path }}stamp">Stamps</a></h3>
         <ul>
         {% for stamp in stamps %}
-            <li>
+            <li class="item-row">
                 <a href="{{ path }}stamp/show/{{ stamp.id }}">{{ stamp.name }}</a>
                 <div>
                     <form action="{{ path }}stamp/edit" method="post">
@@ -29,7 +29,7 @@
         <h3><a href="{{ path }}user">Users</a></h3>
         <ul>
         {% for user in users %}
-            <li>
+            <li class="item-row">
                 <a href="{{ path }}user/show/{{ user.id }}">{{ user.name }}</a>
                 <div>
                     <form action="{{ path }}user/edit" method="post">
@@ -51,7 +51,7 @@
         <h3>Aspects</h3>
         <ul>
         {% for aspect in aspects %}
-            <li>{{ aspect.aspect }}
+            <li class="item-row">{{ aspect.aspect }}
                 <div>
                     <form action="{{ path }}aspect/edit" method="post">
                         <input type="hidden" name="id" value="{{ aspect.id }}">
@@ -72,7 +72,7 @@
         <h3><a href="{{ path }}category">Categories</a></h3>
         <ul>
         {% for category in categories %}
-            <li>{{ category.category }}
+            <li class="item-row">{{ category.category }}
                 <div>
                     <form action="{{ path }}category/edit" method="post">
                         <input type="hidden" name="id" value="{{ category.id }}">
