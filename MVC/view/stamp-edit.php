@@ -18,14 +18,10 @@
             <div>
                 <h4>choose from our categories</h4>
                 {% for category in categories %}
-                    {% for stamp_category in stamp_categories %}
-                    {{ stamp_category.category }}
-                        {% if stamp_category.category == category.category %}
-                        {{ yeah }}
-                        {% endif %}
-                    {% endfor %}
                 <label>{{ category.category }}
-                    <input type="checkbox" name="category_id[{{ category.id }}]" value="1">
+                    <input type="checkbox" name="category_id[{{ category.id }}]" value="1"
+                    {% if category.checked %} {{ checked }}
+                    {% endif %}>
                 </label>
                 {% endfor %}
             </div>

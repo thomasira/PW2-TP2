@@ -107,6 +107,12 @@ class ControllerStamp implements Controller {
                 $data["stamp_categories"][] = $category->readId($stampCategory["category_id"]);
             }
         }
+
+        foreach ($data["categories"] as &$category) {
+            foreach ($data["stamp_categories"] as $stamp_category) {
+                if($stamp_category["category"] == $category["category"]) $category["checked"] = true;
+            }
+        }
         Twig::render("stamp-edit.php", $data);
     }
 
