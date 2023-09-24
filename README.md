@@ -6,14 +6,14 @@ e2395387
 
 > ### index
 > * [Notes](#Notes)
-> * [Liens](#Lien)
+> * [Liens](#Liens)
 > * [Résumé](#Résumé)
 > * [Connexions](#Connexions)
 > * [Diagramme](#Sur-le-diagramme-entité-relationel)
 > * [Base de données](#Sur-la-base-de-données)
 > * [Niveaux d'accès](#Sur-les-niveaux-daccès)
 > * [Architecture](#Sur-larchitecture-du-projet)
-> * [script php](#Sur-le-script-php)
+> * [Script php](#Sur-le-script-php)
 
 ## Notes
 
