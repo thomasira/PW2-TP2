@@ -5,9 +5,15 @@ Thomas Aucoin-Lo
 e2395387
 
 > ### index
-> * [notes](#Notes)
+> * [Notes](#Notes)
+> * [Liens](#Lien)
+> * [Résumé](#Résumé)
+> * [Connexions](#Connexions)
+> * [Diagramme](#Sur-le-diagramme-entité-relationel)
+> * [Base de données](#Sur-la-base-de-données)
+> * [Niveaux d'accès](#Sur-les-niveaux-d'accès)
+> * [Architecture](#Sur-l'architecture-du-projet)
 > * [script php](#Sur-le-script-php)
-
 
 ## Notes
 
