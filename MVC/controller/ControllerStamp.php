@@ -8,6 +8,9 @@ RequirePage::model("StampCategory");
 
 class ControllerStamp implements Controller {
 
+    /**
+     * 
+     */
     public function index() {
         $stamp = new Stamp;
         $data["stamps"] = $stamp->read();
@@ -15,6 +18,9 @@ class ControllerStamp implements Controller {
         Twig::render("stamp-index.php", $data);
     }
 
+    /**
+     * 
+     */
     public function create() {
         if(isset($_SESSION["fingerPrint"])) $data["session_user"] = $_SESSION;
 
@@ -29,41 +35,10 @@ class ControllerStamp implements Controller {
 
         Twig::render("stamp-create.php", $data);
     }
-    
-    public function store() {
 
-        $stamp = new Stamp;
-        $_POST["year"] = intval($_POST["year"]);
-        $stamp_id = $stamp->create($_POST);
-
-
-        foreach($_POST["category_id"] as $category_id => $category){
-            $stampCategory = new StampCategory;
-            $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);
-        }
-        RequirePage::redirect('stamp/show/'. $stamp_id);
-    }
-
-    public function show($id) {
-        $categories = [];
-        $stamp = new Stamp;
-        $readStamp = $stamp->readId($id);
-        $data["stamp"] = $readStamp;
-
-        $aspect = new Aspect;
-        $data["aspect"] = $aspect->readId($readStamp["aspect_id"]);
-
-        $stampCategories = new StampCategory;
-        if($stampCategories->readKeys($readStamp["id"])) {
-            $readStampCategories = $stampCategories->readKeys($readStamp["id"]);
-            foreach($readStampCategories as $stampCategory) {
-                $category = new Category;
-                $data["categories"][] = $category->readId($stampCategory["category_id"]);
-            }
-        }
-        Twig::render("stamp-show.php", $data);
-    }
-
+    /**
+     * 
+     */
     public function delete() {
         if(!$_POST){
             RequirePage::redirect("error");
@@ -80,6 +55,9 @@ class ControllerStamp implements Controller {
         RequirePage::redirect("stamp");
     }
 
+    /**
+     * 
+     */
     public function edit() {
         if(isset($_SESSION["fingerPrint"])) $data["session_user"] = $_SESSION;
 
@@ -120,6 +98,48 @@ class ControllerStamp implements Controller {
         Twig::render("stamp-edit.php", $data);
     }
 
+    /**
+     * 
+     */
+    public function show($id) {
+        $categories = [];
+        $stamp = new Stamp;
+        $readStamp = $stamp->readId($id);
+        $data["stamp"] = $readStamp;
+
+        $aspect = new Aspect;
+        $data["aspect"] = $aspect->readId($readStamp["aspect_id"]);
+
+        $stampCategories = new StampCategory;
+        if($stampCategories->readKeys($readStamp["id"])) {
+            $readStampCategories = $stampCategories->readKeys($readStamp["id"]);
+            foreach($readStampCategories as $stampCategory) {
+                $category = new Category;
+                $data["categories"][] = $category->readId($stampCategory["category_id"]);
+            }
+        }
+        Twig::render("stamp-show.php", $data);
+    }
+
+    /**
+     * 
+     */
+    public function store() {
+        $stamp = new Stamp;
+        $_POST["year"] = intval($_POST["year"]);
+        $stamp_id = $stamp->create($_POST);
+
+
+        foreach($_POST["category_id"] as $category_id => $category){
+            $stampCategory = new StampCategory;
+            $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);
+        }
+        RequirePage::redirect('stamp/show/'. $stamp_id);
+    }
+
+    /**
+     * 
+     */
     public function update() {
         if(!$_POST){
             RequirePage::redirect("error");
@@ -135,6 +155,7 @@ class ControllerStamp implements Controller {
         }
 
         $stamp = new stamp;
+        $_POST["year"] = intval($_POST["year"]);
         $updatedId = $stamp->update($_POST);
         if($updatedId) {
             RequirePage::redirect("stamp/show/$stamp_id");

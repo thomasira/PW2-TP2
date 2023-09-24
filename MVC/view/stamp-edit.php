@@ -58,7 +58,7 @@
             </select>
         </label>
         {% else %} 
-        <input type="hidden" name="user_id" value="{{ user.id }}">
+        
         {% endif %}
 
         <input type="hidden" name="id" value="{{ stamp.id }}">

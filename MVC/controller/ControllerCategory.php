@@ -1,5 +1,7 @@
 <?php
 RequirePage::model("Category");
+RequirePage::model("StampCategory");
+
 
 class ControllerCategory implements Controller {
 
@@ -21,9 +23,14 @@ class ControllerCategory implements Controller {
         !isset($_POST["id"])) {
             RequirePage::redirect("error");
         } else {
-            $id = $_POST["id"];
+
+            $cat_id = $_POST["id"];
             $category = new Category;
-            $data["category"] = $category->delete($id);
+
+            $stampCategories = new StampCategory;
+            $stampCategories->deleteStampCat(null, $cat_id);
+
+            $category->delete($cat_id);
             RequirePage::redirect("panel");
         }
     }

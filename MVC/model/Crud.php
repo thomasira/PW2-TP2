@@ -66,12 +66,19 @@ abstract class Crud extends PDO {
         $query->execute();
     }
 
-    public function deleteStampCat($value1, $value2 = null) {
+    public function deleteStampCat($value1 = null, $value2 = null) {
         $and = "";
-        if($value2 != null) $and = "AND $this->catKey = :$this->catKey";
-        $sql = "DELETE FROM $this->table WHERE $this->stampKey = :$this->stampKey";
+        $sql = "";
+        if($value1 != null) {
+            $sql = "DELETE FROM $this->table WHERE $this->stampKey = :$this->stampKey $and";
+        } else {
+            $sql = "DELETE FROM $this->table WHERE $this->catKey = :$this->catKey";
+        }
+        if($value2 != null) {
+            $and = "AND $this->catKey = :$this->catKey";
+        }
         $query = $this->prepare($sql);
-        $query->bindValue(":$this->stampKey", $value1);
+        if($value1 != null) $query->bindValue(":$this->stampKey", $value1);
         if($value2 != null) $query->bindValue(":$this->catKey", $value2);
         $query->execute();
     }
