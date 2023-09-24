@@ -37,6 +37,9 @@ li div{
 section>form>*+*, form>section>*+*{
     margin-top: var(--padSml);
 }
+section>*+*{
+    margin-top: var(--padMed);
+}
 *+ul{
     margin-top: var(--padSmlr);
 }

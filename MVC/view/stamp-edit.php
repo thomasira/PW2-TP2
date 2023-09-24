@@ -46,13 +46,14 @@
         <section>
             <div>
                 <h4>choose from our categories</h4>
-                {% for category in categories %}
-                <label>{{ category.category }}
-                    <input type="checkbox" name="category_id[{{ category.id }}]" value="1"
-                    {% if category.checked %} {{ "checked" }}
-                    {% endif %}>
-                </label>
-                {% endfor %}
+                <div>
+                    {% for category in categories %}
+                        <input type="checkbox" name="category_id[{{ category.id }}]" value="1"
+                        {% if category.checked %} {{ "checked" }}
+                        {% endif %} id="category_id{{ category.id }}">
+                        <label for="category_id{{ category.id }}">{{ category.category }}</label>
+                    {% endfor %}
+                </div>
             </div>
             <div>
                 <h4>And/Or add your own categories(up to 5, you can add more by editing your stamps)</h4>
