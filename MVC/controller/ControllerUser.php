@@ -1,7 +1,7 @@
 <?php
 RequirePage::model("User");
 RequirePage::model("Stamp");
-
+RequirePage::model("StampCategory");
 
 class ControllerUser implements Controller {
 
@@ -13,33 +13,39 @@ class ControllerUser implements Controller {
         Twig::render("user-index.php", $data);
     }
 
-
     public function create() {
         if(isset($_SESSION["fingerPrint"]) && $_SESSION["name"] == "root") Twig::render("user-create.php");
         else RequirePage::redirect("error");
     }
 
     public function delete() {
-        if(!isset($_SESSION["fingerPrint"]) || !isset($_POST["id"])) {
+        if(!isset($_POST["id"])) {
             RequirePage::redirect("error");
         } else {
             $id;
             if($_SESSION["name"] == "root") $id = $_POST["id"];
             else $id = $_SESSION["id"];
-            $user = new User;
 
             $stamp = new Stamp;
             $where = ["target" => "user_id", "value" => $id];
-            $data["stamps"] = $stamp->readWhere($where);
+            $stamps = $stamp->readWhere($where);
 
-/*             foreach($data["stamps"] as $stamp) {
-                
-            } */
-            print_r($data);
-            die();
+            if($stamps) {
+                foreach($stamps as $stamp) {
+                    $stamp_id = $stamp["id"];
+                    $stampCategories = new StampCategory;
+                    $stampCategories->deleteStampCat($stamp_id);
 
-            $data["user"] = $user->delete($id);
-            RequirePage::redirect("user");
+                    $stamp = new Stamp;
+                    $stamp->delete($stamp_id);
+                }
+            }
+            $user = new User;
+            $user->delete($id);
+            if($_SESSION["name"] != "root") {
+                session_destroy();
+                RequirePage::redirect("user");
+            } elseif($_SESSION["name"] == "root") RequirePage::redirect("panel");
         }
     }
     
@@ -51,7 +57,9 @@ class ControllerUser implements Controller {
         $userId = $user->create($_POST);
         
         $data["success"] = "account created, please log in";
-        Twig::render("login-index.php", $data);
+        if(isset($_SESSION["fingerPrint"]) && $_SESSION["name"] == "root") {
+            RequirePage::redirect("panel");
+        } else Twig::render("login-index.php", $data);
     }
 
 
@@ -62,7 +70,7 @@ class ControllerUser implements Controller {
         $stamp = new Stamp;
         $where = ["target" => "user_id", "value" => $data["user"]["id"]];
         $data["stamps"] = $stamp->readWhere($where);
-        
+
         Twig::render("user-show.php", $data);
     }
 

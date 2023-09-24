@@ -85,13 +85,14 @@ class ControllerStamp implements Controller {
                 $category = new Category;
                 $data["stamp_categories"][] = $category->readId($stampCategory["category_id"]);
             }
-        }
-
-        foreach ($data["categories"] as &$category) {
-            foreach ($data["stamp_categories"] as $stamp_category) {
-                if($stamp_category["category"] == $category["category"]) $category["checked"] = true;
+            foreach ($data["categories"] as &$category) {
+                foreach ($data["stamp_categories"] as $stamp_category) {
+                    if($stamp_category["category"] == $category["category"]) $category["checked"] = true;
+                }
             }
         }
+
+       
         foreach ($data["aspects"] as &$aspect) {
             if($data["stamp"]["aspect_id"] == $aspect["id"]) $aspect["selected"] = true;
         }
@@ -107,9 +108,12 @@ class ControllerStamp implements Controller {
         $readStamp = $stamp->readId($id);
         $data["stamp"] = $readStamp;
 
-        $aspect = new Aspect;
-        $data["aspect"] = $aspect->readId($readStamp["aspect_id"]);
 
+        if(isset($readStamp["aspect_id"])){
+            $aspect = new Aspect;
+            $data["aspect"] = $aspect->readId($readStamp["aspect_id"]);
+        }
+        
         $stampCategories = new StampCategory;
         if($stampCategories->readKeys($readStamp["id"])) {
             $readStampCategories = $stampCategories->readKeys($readStamp["id"]);
@@ -130,9 +134,11 @@ class ControllerStamp implements Controller {
         $stamp_id = $stamp->create($_POST);
 
 
-        foreach($_POST["category_id"] as $category_id => $category){
-            $stampCategory = new StampCategory;
-            $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);
+        if(isset($_POST["category_id"])){
+            foreach($_POST["category_id"] as $category_id => $category){
+                $stampCategory = new StampCategory;
+                $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);
+            }
         }
         RequirePage::redirect('stamp/show/'. $stamp_id);
     }

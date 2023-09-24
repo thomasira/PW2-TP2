@@ -27,7 +27,10 @@
         </section>
         <section>
             <a href="{{ path }}user/edit" class="button">modify info</a>
-            <a href="{{ path }}user/delete" class="button warning">delete profile</a>
+            <form action="{{ path }}user/delete" method="post">
+                <input type="hidden" name="id" value="{{ user.id }}">
+                <input type="submit" class="button warning" value="delete account">
+            </form>
         </section>
 
     </article>

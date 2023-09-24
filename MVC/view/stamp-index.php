@@ -12,7 +12,10 @@
                 </header>
                 <div>
                     <p>{% if stamp.origin %} {{ stamp.origin }} {% else %} Origin Undefined {% endif %}</p>
-                    <p>{% if stamp.year %} {{ stamp.year }} {% else %} Year Undefined {% endif %}</p>
+                    <p>
+                        {% if stamp.year and (stamp.year != 0) %} {{ stamp.year }} 
+                        {% else %} Year Undefined {% endif %}
+                    </p>
                 </div>
         </article>
         </a>

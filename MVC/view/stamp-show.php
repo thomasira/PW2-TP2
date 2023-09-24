@@ -15,11 +15,13 @@
                 </p>
                 <p>
                     <small>year:</small> 
-                    {% if stamp.year %} {{ stamp.year }} 
+                    {% if stamp.year and (stamp.year != 0) %} {{ stamp.year }} 
                     {% else %}Undefined {% endif %}
                 </p>
                 <p>
-                    <small>aspect:</small> {{ aspect.aspect }}
+                    <small>aspect:</small> 
+                    {% if aspect.aspect %} {{ aspect.aspect }} 
+                    {% else %}Undefined {% endif %}
                 </p>
             </div>
             <aside>

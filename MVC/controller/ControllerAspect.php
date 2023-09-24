@@ -1,5 +1,7 @@
 <?php
 RequirePage::model("Aspect");
+RequirePage::model("Stamp");
+
 
 class ControllerAspect implements Controller {
     
@@ -19,8 +21,20 @@ class ControllerAspect implements Controller {
             RequirePage::redirect("error");
         } else {
             $id = $_POST["id"];
+
+            $stamp = new Stamp;
+            $where["target"] = "aspect_id";
+            $where["value"] = $id;
+            $stamps = $stamp->readWhere($where);
+            foreach($stamps as $stamp) {
+                $data["aspect_id"] = null;
+                $data["id"] = $stamp["id"];
+                $stamp = new Stamp;
+                $stamp->update($data);
+            }
+
             $aspect = new Aspect;
-            $data["aspect"] = $aspect->delete($id);
+            $aspect->delete($id);
             RequirePage::redirect("panel");
         }
     }

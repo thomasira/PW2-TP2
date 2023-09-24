@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `e2395387`.`pw2tp2_stamp` (
   `origin` VARCHAR(45) NULL,
   `year` SMALLINT NULL,
   `user_id` INT NOT NULL,
-  `aspect_id` INT NOT NULL,
+  `aspect_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_stamp_user_idx` (`user_id` ASC),
   INDEX `fk_stamp_aspect1_idx` (`aspect_id` ASC),

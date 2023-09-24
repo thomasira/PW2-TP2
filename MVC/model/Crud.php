@@ -63,7 +63,8 @@ abstract class Crud extends PDO {
         $sql = "DELETE FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
         $query = $this->prepare($sql);
         $query->bindValue(":$this->primaryKey", $id);
-        $query->execute();
+        if($query->execute()) return $id;
+        else return $query->errorInfo(); 
     }
 
     public function deleteStampCat($value1 = null, $value2 = null) {
