@@ -24,9 +24,22 @@
                 {% endfor%}
             </div>
             <div>
-                <h4>And/Or add your own categories(separated with a comma and space)</h4>
+                <h4>And/Or add your own categories(up to 5, you can add more by editing your stamps)</h4>
+
                 <label>
-                    <textarea name="categories" cols="30" rows="10"></textarea>
+                    <input type="text" name="new_categories[0]">
+                </label>
+                <label>
+                    <input type="text" name="new_categories[1]">
+                </label>
+                <label>
+                    <input type="text" name="new_categories[2]">
+                </label>
+                <label>
+                    <input type="text" name="new_categories[3]">
+                </label>
+                <label>
+                    <input type="text" name="new_categories[4]">
                 </label>
             </div>
         </section>

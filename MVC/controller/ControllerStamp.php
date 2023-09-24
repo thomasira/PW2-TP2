@@ -82,7 +82,6 @@ class ControllerStamp implements Controller {
         if($stampCategories->readKeys($data["stamp"]["id"])) {
             $readStampCategories = $stampCategories->readKeys($data["stamp"]["id"]);
 
-
             foreach($readStampCategories as $stampCategory) {
                 $category = new Category;
                 $data["stamp_categories"][] = $category->readId($stampCategory["category_id"]);
@@ -129,11 +128,29 @@ class ControllerStamp implements Controller {
      * 
      */
     public function store() {
+        if(!$_POST){
+            RequirePage::redirect("error");
+            exit();
+        }
         $stamp = new Stamp;
         $_POST["year"] = intval($_POST["year"]);
+
+        /*enregistrer les entrées liées à la table category et stamp_category */
+        if(isset($_POST["new_categories"])) {
+            foreach($_POST["new_categories"] as $category) {
+                if($category != "") {
+                    $data["category"] = $category;
+
+                    $category = new Category;
+                    $category_id = $category->create($data);
+
+                    /*conversion de la valeur en clé, poussé dans le $_POST, utile car les autres champs recueillis sont booléens, voir plus bas */
+                    $_POST["category_id"][$category_id] = 1;
+                }
+            }
+        }
         $stamp_id = $stamp->create($_POST);
-
-
+        
         if(isset($_POST["category_id"])){
             foreach($_POST["category_id"] as $category_id => $category){
                 $stampCategory = new StampCategory;
@@ -155,11 +172,26 @@ class ControllerStamp implements Controller {
         $stampCategories = new StampCategory;
         $stampCategories->deleteStampCat($stamp_id);
 
-        foreach($_POST["category_id"] as $category_id => $category){
-            $stampCategory = new StampCategory;
-            $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);
-        }
+        /*enregistrer les entrées liées à la table category et stamp_category */
+        if(isset($_POST["new_categories"])) {
+            foreach($_POST["new_categories"] as $category) {
+                if($category != "") {
+                    $data["category"] = $category;
 
+                    $category = new Category;
+                    $category_id = $category->create($data);
+
+                    $_POST["category_id"][$category_id] = 1;
+                }
+            }
+        }
+        if(isset($_POST["category_id"])){
+            foreach($_POST["category_id"] as $category_id => $category){
+                $stampCategory = new StampCategory;
+                $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);
+            }
+        }
+        
         $stamp = new stamp;
         $_POST["year"] = intval($_POST["year"]);
         $updatedId = $stamp->update($_POST);
