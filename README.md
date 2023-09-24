@@ -5,8 +5,8 @@ Thomas Aucoin-Lo
 e2395387
 
 > ### index
-> * [notes](## Notes)
-> * [script php](## Sur le script php)
+> * [notes](#Notes)
+> * [script php](#Sur_le_script_php)
 
 
 ## Notes
@@ -33,7 +33,7 @@ Un site où les utilisateurs peuvent se connecter et ajouter des timbres categor
 
 > #### root:
 > * user email: root@root.com
-> * password: ***voir presentation.pdf** (remis dans LÉA)*
+> * password: ***voir presentation.pdf***
 
 > #### utilisateur normal:
 > * user email: bill@bill.com
