@@ -80,8 +80,8 @@ class ControllerStamp implements Controller {
 
         $data["stamp"] = $stamp->readId($id);
         $stampCategories = new StampCategory;
-        if($stampCategories->readKeys($data["stamp"]["id"])) {
-            $readStampCategories = $stampCategories->readKeys($data["stamp"]["id"]);
+        if($stampCategories->readStampCat($data["stamp"]["id"])) {
+            $readStampCategories = $stampCategories->readStampCat($data["stamp"]["id"]);
 
             foreach($readStampCategories as $stampCategory) {
                 $category = new Category;

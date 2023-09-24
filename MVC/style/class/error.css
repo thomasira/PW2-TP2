@@ -1,4 +1,4 @@
 
 .error{
-    color: rgb(197, 37, 37);
+    color: var(--colorWarning);
 }

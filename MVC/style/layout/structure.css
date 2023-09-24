@@ -12,37 +12,34 @@ body>main>*+*{
 p{
     font-size: var(--fontSml);
 }
-input{
+input, label, textarea{
     display: block;
 }
-label{
-    display: block;
+input, textarea{
+    padding: var(--padSmlst);
 }
 li{
+    max-width: max-content;
     list-style: none;
-}
-li span{
-    font-style: italic;
-    font-weight: bold;
-}
-*+ul{
-    margin-top: var(--padSmlr);
-}
-ul>*+*{
-    margin-top: var(--padSmlr);
-}
-article+article{
-    margin-top: var(--padMed);
-}
-
-li{
     display: flex;
     align-items: center;
     gap: var(--padLrg);
+    border-bottom: 1px solid var(--colorDark);
 }
 
 li div{
     display: flex;
     align-items: center;
     gap: var(--padSmlr);
+}
+
+/* rythme */
+section>form>*+*, form>section>*+*{
+    margin-top: var(--padSml);
+}
+*+ul{
+    margin-top: var(--padSmlr);
+}
+ul>*+*{
+    margin-top: var(--padSmlr);
 }

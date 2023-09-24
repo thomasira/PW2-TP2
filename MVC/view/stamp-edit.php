@@ -4,16 +4,45 @@
     <header>
         <h2>Edit Stamp</h2>
     </header>
-    <form action="{{ path }}stamp/update" method="post">
-        <label>Name:
-            <input type="text" name="name" value="{{ stamp.name }}"required>
-        </label>
-        <label>Origin:
-            <input type="text" name="origin" value="{{ stamp.origin }}">
-        </label>
-        <label>Year:
-            <input type="year" name="year" value="{{ stamp.year }}">
-        </label>
+    <form action="{{ path }}stamp/update" method="post"  class="form-stamp">
+        <section>
+            <label>Name:
+                <input type="text" name="name" value="{{ stamp.name }}"required>
+            </label>
+            <label>Origin:
+                <input type="text" name="origin" value="{{ stamp.origin }}">
+            </label>
+            <label>Year:
+                <input type="year" name="year" value="{{ stamp.year }}">
+            </label>
+            </label>
+            <label>Aspect:
+                <select name="aspect_id">
+                    {% for aspect in aspects %}
+                    <option value="{{ aspect.id }}"
+                    {% if aspect.selected %}
+                    {{ "selected" }}
+                    {% endif %}>
+                    {{ aspect.aspect }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>description:
+                <textarea name="description" cols="30" rows="10">{{ stamp.description }}</textarea>
+            </label>
+            {% if session_user.name == 'root' %}
+            <label>User
+                <select name="user_id">
+                {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.name }}</option>
+                {% endfor %}
+                </select>
+            </label>
+            {% endif %}
+            <input type="hidden" name="id" value="{{ stamp.id }}">
+            <input type="submit" value="edit" class="button">
+        </section>
+
         <section>
             <div>
                 <h4>choose from our categories</h4>
@@ -45,37 +74,6 @@
                 </label>
             </div>
         </section>
-
-        </label>
-        <label>Aspect:
-            <select name="aspect_id">
-                {% for aspect in aspects %}
-                <option value="{{ aspect.id }}" 
-                {% if aspect.selected %}
-                {{ "selected" }}
-                {% endif %}>
-                {{ aspect.aspect }}</option>
-                {% endfor %}
-            </select>
-        </label>
-        <label>description:
-            <textarea name="description" cols="30" rows="10">{{ stamp.description }}</textarea>
-        </label>
-
-        {% if session_user.name == 'root' %}
-        <label>User
-            <select name="user_id">
-            {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.name }}</option>
-            {% endfor %}
-            </select>
-        </label>
-        {% else %} 
-        
-        {% endif %}
-
-        <input type="hidden" name="id" value="{{ stamp.id }}">
-        <input type="submit" value="edit" class="button">
     </form>
         
 

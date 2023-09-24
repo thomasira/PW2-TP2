@@ -56,7 +56,7 @@ abstract class Crud extends PDO {
 
         $query = $this->prepare($sql);
         $query->bindValue(":$this->stampKey", $valueStamp);
-        if($valueStamp != null) $query->bindValue(":$this->stampKey", $stampKey);
+        if($valueStamp != null) $query->bindValue(":$this->stampKey", $valueStamp);
         if($valueCat != null) $query->bindValue(":$this->catKey", $valueCat);
         $query->execute();
         $count = $query->rowCount();
@@ -130,8 +130,8 @@ abstract class Crud extends PDO {
         }
 
         $query = $this->prepare($sql);
-        if($value1 != null) $query->bindValue(":$this->stampKey", $value1);
-        if($value2 != null) $query->bindValue(":$this->catKey", $value2);
+        if($valueStamp != null) $query->bindValue(":$this->stampKey", $valueStamp);
+        if($valueCat != null) $query->bindValue(":$this->catKey", $valueCat);
         $query->execute();
     }
 
