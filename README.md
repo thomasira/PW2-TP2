@@ -4,6 +4,11 @@
 Thomas Aucoin-Lo  
 e2395387
 
+> ### index
+> * [notes](## Notes)
+> * [script php](## Sur le script php)
+
+
 ## Notes
 
 2 niveaux d'accès sont possibles, soit Root et utilisateur normal. Ils ont chacuns leurs propres pages, il est donc nécéssaire de se connecter en tant que root et ensuite en tant qu'utilisateur normal pour voir tout le projet.  
@@ -28,7 +33,7 @@ Un site où les utilisateurs peuvent se connecter et ajouter des timbres categor
 
 > #### root:
 > * user email: root@root.com
-> * password: ***voir presentation.pdf***
+> * password: ***voir presentation.pdf** (remis dans LÉA)*
 
 > #### utilisateur normal:
 > * user email: bill@bill.com
