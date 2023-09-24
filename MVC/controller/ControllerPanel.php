@@ -6,6 +6,9 @@ RequirePage::model("Category");
 
 class ControllerPanel implements Controller {
 
+    /**
+     * afficher l'index, requiert toutes les entrées des tables simples
+     */
     public function index() {
         if(!isset($_SESSION["fingerPrint"]) || $_SESSION["name"] != "root") {
             RequirePage::redirect("error");

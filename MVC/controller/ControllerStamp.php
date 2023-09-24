@@ -9,7 +9,7 @@ RequirePage::model("StampCategory");
 class ControllerStamp implements Controller {
 
     /**
-     * 
+     * afficher l'index
      */
     public function index() {
         $stamp = new Stamp;
@@ -19,7 +19,7 @@ class ControllerStamp implements Controller {
     }
 
     /**
-     * 
+     * afficher le formulaire créer
      */
     public function create() {
         if(isset($_SESSION["fingerPrint"])) $data["session_user"] = $_SESSION;
@@ -37,7 +37,7 @@ class ControllerStamp implements Controller {
     }
 
     /**
-     * 
+     * supprimer les entrées de la table stamp_category associé à la clé($stamp_id) et supprimer l'entrée
      */
     public function delete() {
         if(!$_POST){
@@ -81,6 +81,8 @@ class ControllerStamp implements Controller {
         $stampCategories = new StampCategory;
         if($stampCategories->readKeys($data["stamp"]["id"])) {
             $readStampCategories = $stampCategories->readKeys($data["stamp"]["id"]);
+
+
             foreach($readStampCategories as $stampCategory) {
                 $category = new Category;
                 $data["stamp_categories"][] = $category->readId($stampCategory["category_id"]);
@@ -91,8 +93,6 @@ class ControllerStamp implements Controller {
                 }
             }
         }
-
-       
         foreach ($data["aspects"] as &$aspect) {
             if($data["stamp"]["aspect_id"] == $aspect["id"]) $aspect["selected"] = true;
         }
