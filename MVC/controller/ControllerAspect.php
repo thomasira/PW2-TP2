@@ -5,6 +5,9 @@ RequirePage::model("Stamp");
 
 class ControllerAspect implements Controller {
     
+    /**
+     * rediriger ver la page index
+     */
     public function index() {
         RequirePage::redirect("error");
     }
