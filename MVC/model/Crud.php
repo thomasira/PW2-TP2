@@ -26,11 +26,11 @@ abstract class Crud extends PDO {
 
     public function readKeys($value1, $value2 = null){
         $and = "";
-        if($value2 != null) $and = "AND $this->compKey2 = :$this->compKey2";
-        $sql = "SELECT * FROM $this->table WHERE $this->compKey1 = :$this->compKey1 $and";
+        if($value2 != null) $and = "AND $this->catKey = :$this->catKey";
+        $sql = "SELECT * FROM $this->table WHERE $this->stampKey = :$this->stampKey $and";
         $query = $this->prepare($sql);
-        $query->bindValue(":$this->compKey1", $value1);
-        if($value2 != null) $query->bindValue(":$this->compKey2", $value2);
+        $query->bindValue(":$this->stampKey", $value1);
+        if($value2 != null) $query->bindValue(":$this->catKey", $value2);
         $query->execute();
         $count = $query->rowCount();
         if ($count != 0) return $query->fetchAll();
@@ -63,6 +63,16 @@ abstract class Crud extends PDO {
         $sql = "DELETE FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
         $query = $this->prepare($sql);
         $query->bindValue(":$this->primaryKey", $id);
+        $query->execute();
+    }
+
+    public function deleteStampCat($value1, $value2 = null) {
+        $and = "";
+        if($value2 != null) $and = "AND $this->catKey = :$this->catKey";
+        $sql = "DELETE FROM $this->table WHERE $this->stampKey = :$this->stampKey";
+        $query = $this->prepare($sql);
+        $query->bindValue(":$this->stampKey", $value1);
+        if($value2 != null) $query->bindValue(":$this->catKey", $value2);
         $query->execute();
     }
 

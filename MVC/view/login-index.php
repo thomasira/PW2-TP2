@@ -3,9 +3,12 @@
 <main>
     <section>
         {% if error %} 
-        <p>{{ error }}</p>
+        <p class="error">{{ error }}</p>
         {% endif %}
         <h2>Login</h2>
+        {% if success %} 
+        <p class="succes">{{ success }}</p>
+        {% endif %}
         <form action="{{ path }}user/auth" method="post">
             <label>Email
                 <input type="email" name="email" required>

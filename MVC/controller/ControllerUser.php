@@ -49,12 +49,9 @@ class ControllerUser implements Controller {
         $salt = "7dh#9fj0K";
         $_POST["password"] = password_hash($_POST["password"] . $salt, PASSWORD_BCRYPT);
         $userId = $user->create($_POST);
-
-        $_SESSION["id"] = $userId;
-        $_SESSION["name"] = $_POST["name"];
-        $_SESSION["fingerPrint"] = md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
         
-        RequirePage::redirect("user/profile");
+        $data["success"] = "account created, please log in";
+        Twig::render("login-index.php", $data);
     }
 
 
@@ -71,8 +68,11 @@ class ControllerUser implements Controller {
 
 
     public function profile() {
+        if(isset($_SESSION["fingerPrint"]) && $_SESSION["name"] == "root") {
+            RequirePage::redirect("panel");
+        } 
         if(!isset($_SESSION["fingerPrint"])) {
-            RequirePage::redirect("error");
+            Twig::render("error.php");
             exit();
         } 
 
@@ -90,7 +90,7 @@ class ControllerUser implements Controller {
     public function edit() {
         $id;
         if(!isset($_SESSION["fingerPrint"])){
-            RequirePage::redirect("error");
+            Twig::render("error.php");
             exit();
         }
         if($_SESSION["name"] == "root") $id = $_POST["id"];
@@ -102,7 +102,10 @@ class ControllerUser implements Controller {
     }
 
     public function update() {
-        if(!isset($_POST["id"])) RequirePage::redirect("error");
+        if(!isset($_POST["id"])) {
+            Twig::render("error.php");
+            exit();
+        }
         $user = new User;
         $updatedId = $user->update($_POST);
         if($updatedId) {

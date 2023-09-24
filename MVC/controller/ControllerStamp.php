@@ -65,31 +65,48 @@ class ControllerStamp implements Controller {
     }
 
     public function delete() {
-        $id = $_POST["id"];
-        $stamp = new Stamp;
-        $readStamp = $stamp->readId($id);
-        $data["stamp"] = $readStamp;
+        if(!$_POST){
+            RequirePage::redirect("error");
+            exit();
+        }
+        $stamp_id = $_POST["id"];
 
         $stampCategories = new StampCategory;
+        $stampCategories->deleteStampCat($stamp_id);
 
-        if($stampCategories->readKeys($readStamp["id"])) {
-            $readStampCategories = $stampCategories->readKeys($readStamp["id"]);
-            foreach($readStampCategories as $stampCategory) {
-                print_r($stampCategory);
-                
-            }
-            die();
-        }
+        $stamp = new Stamp;
+        $stamp->delete($stamp_id);
+
+        RequirePage::redirect("stamp");
     }
 
     public function edit() {
+
         if(!$_POST){
             RequirePage::redirect("error");
             exit();
         }
         $id = $_POST["id"];
         $stamp = new stamp; 
+
+        $aspect = new Aspect;
+        $data["aspects"] = $aspect->read();
+
+        $category = new Category;
+        $data["categories"] = $category->read();
+
+        $user = new User;
+        $data["users"] = $user->read();
+
         $data["stamp"] = $stamp->readId($id);
+        $stampCategories = new StampCategory;
+        if($stampCategories->readKeys($data["stamp"]["id"])) {
+            $readStampCategories = $stampCategories->readKeys($data["stamp"]["id"]);
+            foreach($readStampCategories as $stampCategory) {
+                $category = new Category;
+                $data["stamp_categories"][] = $category->readId($stampCategory["category_id"]);
+            }
+        }
         Twig::render("stamp-edit.php", $data);
     }
 

@@ -2,26 +2,32 @@
 
 <main>
     <header>
-        <h2>Create Stamp</h2>
+        <h2>Edit Stamp</h2>
     </header>
-    <form action="{{ path}}/stamp/store" method="post">
+    <form action="{{ path }}stamp/update" method="post">
         <label>Name:
-            <input type="text" name="name" required>
+            <input type="text" name="name" value="{{ stamp.name }}"required>
         </label>
         <label>Origin:
-            <input type="text" name="origin">
+            <input type="text" name="origin" value="{{ stamp.origin }}">
         </label>
         <label>Year:
-            <input type="year" name="year">
+            <input type="year" name="year" value="{{ stamp.year }}">
         </label>
         <section>
             <div>
                 <h4>choose from our categories</h4>
-                {% for category in categories%}
+                {% for category in categories %}
+                    {% for stamp_category in stamp_categories %}
+                    {{ stamp_category.category }}
+                        {% if stamp_category.category == category.category %}
+                        {{ yeah }}
+                        {% endif %}
+                    {% endfor %}
                 <label>{{ category.category }}
                     <input type="checkbox" name="category_id[{{ category.id }}]" value="1">
                 </label>
-                {% endfor%}
+                {% endfor %}
             </div>
             <div>
                 <h4>And/Or add your own categories(separated with a comma and space)</h4>

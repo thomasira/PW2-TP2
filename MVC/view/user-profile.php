@@ -12,11 +12,11 @@
                     <a href="{{ path }}stamp/show/{{ stamp.id }}">{{ stamp.name }}</a>
                     <div>
                         <form action="{{ path }}stamp/edit" method="post">
-                            <input type="hidden" name="id" value="{{ user.id }}">
+                            <input type="hidden" name="id" value="{{ stamp.id }}">
                             <input type="submit" class="icon" value="&#9998;">
                         </form>
                         <form action="{{ path }}stamp/delete" method="post">
-                            <input type="hidden" name="id" value="{{ user.id }}">
+                            <input type="hidden" name="id" value="{{ stamp.id }}">
                             <input type="submit" class="icon" value="&#128465;">
                         </form>
                     </div>
