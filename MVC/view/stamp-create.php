@@ -47,7 +47,7 @@
                 <div>
                     {% for category in categories%}
                     <input type="checkbox" id="category_id[{{ category.id }}]" name="category_id[{{ category.id }}]" value="1">
-                    <label for="category_id[{{ category.id }}]">{{ category.category }}</label>
+                    <label for="category_id[{{ category.id }}]" class="item-category">{{ category.category }}</label>
                     {% endfor%}
                 </div>
             </div>

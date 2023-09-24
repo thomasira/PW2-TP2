@@ -1,3 +1,4 @@
+
 <main>
     <article class="file-user">
         <header>
@@ -6,9 +7,11 @@
         </header>
         <section>
             <h3>{{ user.name }}'s stamps</h3>
-            {% for stamp in stamps %}
-                <a href="{{ path }}/stamp/show/{{ stamp.id }}">{{ stamp.name }}</a>
-            {% endfor %}
+            <div>
+                {% for stamp in stamps %}
+                    <a href="{{ path }}/stamp/show/{{ stamp.id }}">{{ stamp.name }}</a>
+                {% endfor %}
+            </div>
         </section>
     </article>
 </main>

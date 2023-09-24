@@ -5,7 +5,6 @@ body>main{
     padding: var(--padLrg);
     max-width: 1400px;
 }
-
 body>main>*+*{
     margin-top: var(--padMed);
 }
@@ -19,23 +18,19 @@ input, textarea{
     padding: var(--padSmlst);
 }
 li{
-    max-width: max-content;
+
     list-style: none;
-    display: flex;
-    align-items: center;
-    gap: var(--padLrg);
-    border-bottom: 1px solid var(--colorDark);
+
 }
 
-li div{
-    display: flex;
-    align-items: center;
-    gap: var(--padSmlr);
-}
+
 
 /* rythme */
 section>form>*+*, form>section>*+*{
     margin-top: var(--padSml);
+}
+div>form>*+*{
+    margin-top: 0;
 }
 section>*+*{
     margin-top: var(--padMed);
