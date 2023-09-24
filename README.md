@@ -11,8 +11,8 @@ e2395387
 > * [Connexions](#Connexions)
 > * [Diagramme](#Sur-le-diagramme-entité-relationel)
 > * [Base de données](#Sur-la-base-de-données)
-> * [Niveaux d'accès](#Sur-les-niveaux-d'accès)
-> * [Architecture](#Sur-l'architecture-du-projet)
+> * [Niveaux d'accès](#Sur-les-niveaux-daccès)
+> * [Architecture](#Sur-larchitecture-du-projet)
 > * [script php](#Sur-le-script-php)
 
 ## Notes
