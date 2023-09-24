@@ -6,6 +6,9 @@ abstract class Crud extends PDO {
         parent::__construct("mysql:host=localhost;dbname=e2395387;port=3306;charset=utf8", "root", "");
     }
 
+    /**
+     * lire les entrées de la DB associées aux données de la classe
+     */
     public function read($order = null) {
         $sql = "SELECT * FROM $this->table ORDER BY id $order";
         $query = $this->query($sql);
@@ -14,6 +17,11 @@ abstract class Crud extends PDO {
         else return false;
     }
 
+    /**
+     * lire les entrées de la DB associées à la classe et au paramètre $where
+     * 
+     * @param $where -> composé de la cible et la valeur recherchée
+     */
     public function readWhere($where) {
         $target = $where["target"];
         $value = $where["value"];
@@ -24,19 +32,43 @@ abstract class Crud extends PDO {
         else return false;
     }
 
-    public function readKeys($value1, $value2 = null){
+    /**
+     * lire les entrées de la DB de la table stampCat associées à la classe et au paramètre 1 et 2
+     * 
+     * @param $valueStamp -> valeur du id de l'étampe recherchée
+     * @param $valueCat -> valeur du id de la catégorie recherchée
+     */
+    public function readStampCat($valueStamp = null, $valueCat = null) {
         $and = "";
-        if($value2 != null) $and = "AND $this->catKey = :$this->catKey";
-        $sql = "SELECT * FROM $this->table WHERE $this->stampKey = :$this->stampKey $and";
+        $sql = "";
+
+        if($valueStamp == null && $valueStamp == null) {
+            return false;
+        }elseif($valueStamp == null) {
+            $sql = "SELECT * FROM $this->table WHERE $this->catKey = :$this->catKey";
+        } else {
+            $sql = "SELECT * FROM $this->table WHERE $this->stampKey = :$this->stampKey $and";
+        }
+
+        if($valueCat != null) {
+            $and = "AND $this->catKey = :$this->catKey";
+        }
+
         $query = $this->prepare($sql);
-        $query->bindValue(":$this->stampKey", $value1);
-        if($value2 != null) $query->bindValue(":$this->catKey", $value2);
+        $query->bindValue(":$this->stampKey", $valueStamp);
+        if($valueStamp != null) $query->bindValue(":$this->stampKey", $stampKey);
+        if($valueCat != null) $query->bindValue(":$this->catKey", $valueCat);
         $query->execute();
         $count = $query->rowCount();
         if ($count != 0) return $query->fetchAll();
         else return false;
     }
 
+    /**
+     * lire une entrée de la DB associé à la classe et au paramètre
+     * 
+     * @param $value -> valeur de clé primaire recherchée
+     */
     public function readId($value) {
         $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
         $query = $this->prepare($sql);
@@ -47,6 +79,11 @@ abstract class Crud extends PDO {
         else header("location: ../../home/error");
     }
 
+    /**
+     * enregistrer une entrée dans la DB en utilisant le paramètre pour remplir les champs déterminés dans le "fillable de la classe" associée à la classe
+     * 
+     * @param $data -> les données provenant souvent d'un formulaire, reçu du controller
+     */
     public function create($data) {
         $data_keys = array_fill_keys($this->fillable, "");
         $data = array_intersect_key($data, $data_keys);
@@ -59,6 +96,9 @@ abstract class Crud extends PDO {
         return $this->lastInsertId();
     }
 
+    /**
+     * supprimer une entrée de la DB
+     */
     public function delete($id) {
         $sql = "DELETE FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
         $query = $this->prepare($sql);
@@ -67,23 +107,39 @@ abstract class Crud extends PDO {
         else return $query->errorInfo(); 
     }
 
-    public function deleteStampCat($value1 = null, $value2 = null) {
+    /**
+     * supprimer les entrées de la DB de la table stampCat associées à la classe et au paramètre 1 et 2
+     * 
+     * @param $valueStamp -> valeur du id de l'étampe recherchée
+     * @param $valueCat -> valeur du id de la catégorie recherchée
+     */
+    public function deleteStampCat($valueStamp = null, $valueCat = null) {
         $and = "";
         $sql = "";
-        if($value1 != null) {
-            $sql = "DELETE FROM $this->table WHERE $this->stampKey = :$this->stampKey $and";
-        } else {
+
+        if($valueStamp == null && $valueCat == null) {
+            return false;
+        }elseif($valueStamp == null) {
             $sql = "DELETE FROM $this->table WHERE $this->catKey = :$this->catKey";
+        } else {
+            $sql = "DELETE FROM $this->table WHERE $this->stampKey = :$this->stampKey $and";
         }
-        if($value2 != null) {
+
+        if($valueCat != null) {
             $and = "AND $this->catKey = :$this->catKey";
         }
+
         $query = $this->prepare($sql);
         if($value1 != null) $query->bindValue(":$this->stampKey", $value1);
         if($value2 != null) $query->bindValue(":$this->catKey", $value2);
         $query->execute();
     }
 
+    /**
+     * mettre à jour une entrée de la DB associé à la classe associée et au paramètre
+     * 
+     * @param $data -> les données provenant souvent d'un formulaire, reçu du controller
+     */
     public function update($data) {
         $data_keys = array_fill_keys($this->fillable, "");
         $data = array_intersect_key($data, $data_keys);

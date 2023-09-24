@@ -56,7 +56,7 @@ class ControllerStamp implements Controller {
     }
 
     /**
-     * 
+     * afficher le formulaire mettre à jour
      */
     public function edit() {
         if(isset($_SESSION["fingerPrint"])) $data["session_user"] = $_SESSION;
@@ -77,6 +77,7 @@ class ControllerStamp implements Controller {
         $user = new User;
         $data["users"] = $user->read();
 
+
         $data["stamp"] = $stamp->readId($id);
         $stampCategories = new StampCategory;
         if($stampCategories->readKeys($data["stamp"]["id"])) {
@@ -86,12 +87,15 @@ class ControllerStamp implements Controller {
                 $category = new Category;
                 $data["stamp_categories"][] = $category->readId($stampCategory["category_id"]);
             }
+
+            /* boucler sur les categories correspondantes et les "check" */
             foreach ($data["categories"] as &$category) {
                 foreach ($data["stamp_categories"] as $stamp_category) {
                     if($stamp_category["category"] == $category["category"]) $category["checked"] = true;
                 }
             }
         }
+        /* boucler sur les aspects et "selected" le correspondant */
         foreach ($data["aspects"] as &$aspect) {
             if($data["stamp"]["aspect_id"] == $aspect["id"]) $aspect["selected"] = true;
         }
@@ -99,7 +103,7 @@ class ControllerStamp implements Controller {
     }
 
     /**
-     * 
+     * afficher un timbre
      */
     public function show($id) {
         $categories = [];
@@ -114,8 +118,8 @@ class ControllerStamp implements Controller {
         }
         
         $stampCategories = new StampCategory;
-        if($stampCategories->readKeys($readStamp["id"])) {
-            $readStampCategories = $stampCategories->readKeys($readStamp["id"]);
+        if($stampCategories->readStampCat($readStamp["id"])) {
+            $readStampCategories = $stampCategories->readStampCat($readStamp["id"]);
             foreach($readStampCategories as $stampCategory) {
                 $category = new Category;
                 $data["categories"][] = $category->readId($stampCategory["category_id"]);
@@ -125,7 +129,7 @@ class ControllerStamp implements Controller {
     }
 
     /**
-     * 
+     * enregistrer une entrée dans la DB
      */
     public function store() {
         if(!$_POST){
@@ -133,6 +137,8 @@ class ControllerStamp implements Controller {
             exit();
         }
         $stamp = new Stamp;
+
+        /* s'assurer que l'entrée soit INT */
         $_POST["year"] = intval($_POST["year"]);
 
         /*enregistrer les entrées liées à la table category et stamp_category */
@@ -161,7 +167,7 @@ class ControllerStamp implements Controller {
     }
 
     /**
-     * 
+     * mettre à jour les entrées
      */
     public function update() {
         if(!$_POST){
