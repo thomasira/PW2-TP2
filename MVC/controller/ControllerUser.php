@@ -5,7 +5,9 @@ RequirePage::model("StampCategory");
 
 class ControllerUser implements Controller {
 
-
+    /**
+     * afficher l'index
+     */
     public function index() {
         $user = new User;
         $read = $user->read();
@@ -13,11 +15,17 @@ class ControllerUser implements Controller {
         Twig::render("user-index.php", $data);
     }
 
+    /**
+     * afficher le formulaire créer
+     */
     public function create() {
         if(isset($_SESSION["fingerPrint"]) && $_SESSION["name"] == "root") Twig::render("user-create.php");
         else RequirePage::redirect("error");
     }
 
+    /**
+     * supprimer une entrée de la DB et supprimer les entrées associées de la DB
+     */
     public function delete() {
         if(!isset($_POST["id"])) {
             RequirePage::redirect("error");
@@ -50,6 +58,9 @@ class ControllerUser implements Controller {
     }
     
 
+    /**
+     * enregistrer une entrée dans la DB
+     */
     public function store() {
         $user = new User;
         $salt = "7dh#9fj0K";
@@ -63,6 +74,9 @@ class ControllerUser implements Controller {
     }
 
 
+    /**
+     * afficher un utilisateur
+     */
     public function show($id) {
         $user = new User;
         $data["user"] = $user->readId($id);
@@ -74,7 +88,9 @@ class ControllerUser implements Controller {
         Twig::render("user-show.php", $data);
     }
 
-
+    /**
+     * afficher le profil d'utilisateur
+     */
     public function profile() {
         if(isset($_SESSION["fingerPrint"]) && $_SESSION["name"] == "root") {
             RequirePage::redirect("panel");
@@ -95,6 +111,9 @@ class ControllerUser implements Controller {
         Twig::render("user-profile.php", $data);
     }
 
+    /**
+     * afficher le formulaire mettre à jour
+     */
     public function edit() {
         $id;
         if(!isset($_SESSION["fingerPrint"])){
@@ -109,6 +128,9 @@ class ControllerUser implements Controller {
         Twig::render("user-edit.php", $data);
     }
 
+    /**
+     * mettre à jour une entrée dans la DB
+     */
     public function update() {
         if(!isset($_POST["id"])) {
             Twig::render("error.php");
@@ -122,6 +144,9 @@ class ControllerUser implements Controller {
         else print_r($updatedId);
     }
 
+    /**
+     * authentifier l'identification d'un utilisateur
+     */
     public function auth() {
         $user = new User;
         $where = ["target" => "email", "value" => $_POST["email"]];
