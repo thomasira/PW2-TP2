@@ -20,7 +20,7 @@
                 {% for category in categories %}
                 <label>{{ category.category }}
                     <input type="checkbox" name="category_id[{{ category.id }}]" value="1"
-                    {% if category.checked %} {{ checked }}
+                    {% if category.checked %} {{ "checked" }}
                     {% endif %}>
                 </label>
                 {% endfor %}
@@ -37,15 +37,19 @@
         <label>Aspect:
             <select name="aspect_id">
                 {% for aspect in aspects %}
-                <option value="{{ aspect.id }}">{{ aspect.aspect }}</option>
+                <option value="{{ aspect.id }}" 
+                {% if aspect.selected %}
+                {{ "selected" }}
+                {% endif %}>
+                {{ aspect.aspect }}</option>
                 {% endfor %}
             </select>
         </label>
         <label>description:
-            <textarea name="description" cols="30" rows="10"></textarea>
+            <textarea name="description" cols="30" rows="10">{{ stamp.description }}</textarea>
         </label>
 
-        {% if session_user == 'root' %}
+        {% if session_user.name == 'root' %}
         <label>User
             <select name="user_id">
             {% for user in users %}
@@ -57,7 +61,8 @@
         <input type="hidden" name="user_id" value="{{ user.id }}">
         {% endif %}
 
-        <input type="submit" value="create" class="button">
+        <input type="hidden" name="id" value="{{ stamp.id }}">
+        <input type="submit" value="edit" class="button">
     </form>
         
 

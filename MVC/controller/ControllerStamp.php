@@ -81,6 +81,7 @@ class ControllerStamp implements Controller {
     }
 
     public function edit() {
+        if(isset($_SESSION["fingerPrint"])) $data["session_user"] = $_SESSION;
 
         if(!$_POST){
             RequirePage::redirect("error");
@@ -113,13 +114,32 @@ class ControllerStamp implements Controller {
                 if($stamp_category["category"] == $category["category"]) $category["checked"] = true;
             }
         }
+        foreach ($data["aspects"] as &$aspect) {
+            if($data["stamp"]["aspect_id"] == $aspect["id"]) $aspect["selected"] = true;
+        }
         Twig::render("stamp-edit.php", $data);
     }
 
     public function update() {
-        $client = new Client;
-        $updatedId = $client->update($_POST);
-        if($updatedId) RequirePage::redirect('client/show/'. $updatedId);
+        if(!$_POST){
+            RequirePage::redirect("error");
+            exit();
+        }
+        $stamp_id = $_POST["id"];
+        $stampCategories = new StampCategory;
+        $stampCategories->deleteStampCat($stamp_id);
+
+        foreach($_POST["category_id"] as $category_id => $category){
+            $stampCategory = new StampCategory;
+            $stampCategory->create([ "stamp_id" => $stamp_id, "category_id" => $category_id]);
+        }
+
+        $stamp = new stamp;
+        $updatedId = $stamp->update($_POST);
+        if($updatedId) {
+            RequirePage::redirect("stamp/show/$stamp_id");
+        }
         else print_r($updatedId);
     }
+
 }

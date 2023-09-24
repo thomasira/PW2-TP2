@@ -77,10 +77,12 @@ abstract class Crud extends PDO {
     }
 
     public function update($data) {
+        $data_keys = array_fill_keys($this->fillable, "");
+        $data = array_intersect_key($data, $data_keys);
         $set = "";
         $id = $data["id"];
         foreach ($data as $field => $value) $set .= " $field = :$field,"; 
-        $set = Rtrim($set, ",");
+        $set = rtrim($set, ",");
         $sql = "UPDATE $this->table SET $set WHERE $this->primaryKey = :$this->primaryKey";
         $query = $this->prepare($sql);
         foreach ($data as $field => $value) $query->bindValue(":$field", $value);
